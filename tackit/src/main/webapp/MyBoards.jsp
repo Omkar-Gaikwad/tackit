@@ -19,6 +19,8 @@
     <script src="js/jquery/jquery.widget.min.js"></script>
     <script src="js/jquery/jquery.mousewheel.js"></script>
     <script src="js/prettify/prettify.js"></script>
+    
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
     <!-- Metro UI CSS JavaScript plugins -->
     <script src="js/load-metro.js"></script>
@@ -43,7 +45,7 @@
     
     
 </head>
-<body class="metro" style="background-color: #efeae3">
+<body class="metro">
 <div id="header">
 	<div class="navbar navbar-inverse navbar-static-top">
 		<div id="headerNav" class="navbar-inner">
@@ -80,11 +82,38 @@
 		</div>
 	</div>
 </div>
+<nav class="navigation-bar white">
+    <nav class="navigation-bar-content">
+                    <a href="/" class="element"><span class="icon-grid-view"></span> 2 Boards</a>
+                    <span class="element-divider"></span>
+                    <a class="pull-menu" href="#"></a>
+					<a href="/" class="element"><span class="icon-grid-view"></span> 4 Pins</a>
+                    <span class="element-divider"></span>
+					<a href="/" class="element"><span class="icon-grid-view"></span> 1 Like</a>
+					<span class="element-divider"></span>
+					<div class="element place-right">
+                    <a href="/" class="element" class="element place-right"><span class="icon-grid-view"></span> 0 Followers</a>
+                    </div>
+                    <span class="element-divider"></span>
+					<div class="element place-right">
+                     <a href="/" class="element" class="element place-right"><span class="icon-grid-view"></span> 1 Following</a>
+                    </div> 
+    </nav>
+</nav>
 
+    <div class="tile-area tile-area-white">
+  
+  <div class="tile double double-vertical live" data-role="live-tile" data-effect="slideUpDown" data-click="transform" data-easing="easeInElastic">
+                <div class="tile-content image">
+                    <img src="http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg">
+                </div>
+               <div class="tile-status bg-dark opacity">
+                            <span class="label">effect: slideLeft</span>
+                        </div>
 
-    <div class="tile-area tile-area-dark">
+            </div>
 
-<div class="tile double double-vertical live" data-role="live-tile" data-effect="slideUpDown" data-click="transform">
+<div class="tile double double-vertical live" data-role="live-tile" data-effect="slideUpDown" data-click="transform" data-easing="easeInElastic">
                 <div class="tile-content image">
                     <img src="http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg">
                 </div>
@@ -101,9 +130,135 @@
                     <img src="http://blog.gettyimages.com/wp-content/uploads/2013/01/Siberian-Tiger-Running-Through-Snow-Tom-Brakefield-Getty-Images-200353826-001.jpg">
                 </div>
 
-                <div class="tile-status">
-                    <span class="label">Images</span>
+                <div class="brand bg-black">
+        <span class="label fg-white">Board2</span>
+    </div>
+            </div>
+            <div class="tile double double-vertical live" data-role="live-tile" data-effect="slideUpDown" data-click="transform" data-easing="easeInElastic">
+                <div class="tile-content image">
+                    <img src="http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg">
                 </div>
+                <div class="tile-content image">
+                    <img src="http://blog.gettyimages.com/wp-content/uploads/2013/01/Siberian-Tiger-Running-Through-Snow-Tom-Brakefield-Getty-Images-200353826-001.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://www.nasa.gov/sites/default/files/timelapse_sun.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg" data-easing="easeInElastic">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://blog.gettyimages.com/wp-content/uploads/2013/01/Siberian-Tiger-Running-Through-Snow-Tom-Brakefield-Getty-Images-200353826-001.jpg">
+                </div>
+
+                <div class="brand bg-black">
+        <span class="label fg-white">Board3</span>
+    </div>
+            </div>
+            <div class="tile double double-vertical live" data-role="live-tile" data-effect="slideUpDown" data-click="transform" data-easing="easeInElastic">
+                <div class="tile-content image">
+                    <img src="http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://blog.gettyimages.com/wp-content/uploads/2013/01/Siberian-Tiger-Running-Through-Snow-Tom-Brakefield-Getty-Images-200353826-001.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://www.nasa.gov/sites/default/files/timelapse_sun.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://blog.gettyimages.com/wp-content/uploads/2013/01/Siberian-Tiger-Running-Through-Snow-Tom-Brakefield-Getty-Images-200353826-001.jpg">
+                </div>
+
+               <div class="tile-status bg-dark opacity">
+                            <span class="label">Board4</span>
+                        </div>
+            </div>
+            <div class="tile double double-vertical live" data-role="live-tile" data-effect="slideUpDown" data-click="transform">
+                <div class="tile-content image">
+                    <img src="http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://blog.gettyimages.com/wp-content/uploads/2013/01/Siberian-Tiger-Running-Through-Snow-Tom-Brakefield-Getty-Images-200353826-001.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://www.nasa.gov/sites/default/files/timelapse_sun.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://blog.gettyimages.com/wp-content/uploads/2013/01/Siberian-Tiger-Running-Through-Snow-Tom-Brakefield-Getty-Images-200353826-001.jpg">
+                </div>
+
+               <div class="tile-status bg-dark opacity">
+                            <span class="label">Board5</span>
+                        </div>
+            </div>
+            <div class="tile double double-vertical live" data-role="live-tile" data-effect="slideUpDown" data-click="transform">
+                <div class="tile-content image">
+                    <img src="http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://blog.gettyimages.com/wp-content/uploads/2013/01/Siberian-Tiger-Running-Through-Snow-Tom-Brakefield-Getty-Images-200353826-001.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://www.nasa.gov/sites/default/files/timelapse_sun.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://blog.gettyimages.com/wp-content/uploads/2013/01/Siberian-Tiger-Running-Through-Snow-Tom-Brakefield-Getty-Images-200353826-001.jpg">
+                </div>
+
+                 <div class="tile-status bg-dark opacity">
+                            <span class="label">Board6</span>
+                        </div>
+            </div>
+            <div class="tile double double-vertical live" data-role="live-tile" data-effect="slideUpDown" data-click="transform">
+                <div class="tile-content image">
+                    <img src="http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://blog.gettyimages.com/wp-content/uploads/2013/01/Siberian-Tiger-Running-Through-Snow-Tom-Brakefield-Getty-Images-200353826-001.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://www.nasa.gov/sites/default/files/timelapse_sun.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://blog.gettyimages.com/wp-content/uploads/2013/01/Siberian-Tiger-Running-Through-Snow-Tom-Brakefield-Getty-Images-200353826-001.jpg">
+                </div>
+
+                <div class="brand bg-black">
+        <span class="label fg-white">Board7</span>
+    </div>
+            </div>
+            <div class="tile double double-vertical live" data-role="live-tile" data-effect="slideUpDown" data-click="transform">
+                <div class="tile-content image">
+                    <img src="http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://blog.gettyimages.com/wp-content/uploads/2013/01/Siberian-Tiger-Running-Through-Snow-Tom-Brakefield-Getty-Images-200353826-001.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://www.nasa.gov/sites/default/files/timelapse_sun.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg">
+                </div>
+                <div class="tile-content image">
+                    <img src="http://blog.gettyimages.com/wp-content/uploads/2013/01/Siberian-Tiger-Running-Through-Snow-Tom-Brakefield-Getty-Images-200353826-001.jpg">
+                </div>
+
+                 <div class="brand bg-black">
+        <span class="label fg-white">Board8</span>
+    </div>
             </div>
 			</div>
     </body>
