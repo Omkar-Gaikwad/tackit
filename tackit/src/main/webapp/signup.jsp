@@ -78,7 +78,7 @@ function uploadFormData(){
 </script>
 </head>
 <body>
-
+<%@include file="layout/header.jsp" %>
 
 <div id="container" style="padding-top: 40px;">
 		<div class="container-fluid">
@@ -245,21 +245,7 @@ function uploadFormData(){
         </script>
 
 	
-
-<div id="footer">
-		<div class="navbar navbar-inverse navbar-fixed-bottom">
-			<div class="navbar-inner" style="min-height: 70px;">
-				<div style="margin: 10px 5px 10px 5px; float: left;">
-					<span style="color: white;">Copyright &copy; AirBox</span>
-				</div>
-				<div style="margin: 10px 10px 10px 10px; float: right;">
-					<a href="about.htm" style="color: white;">About Us</a> <span
-						style="color: white;">|</span> <a data-toggle="modal" href="#" style="color: white;">Contact
-						Us</a>
-				</div>
-			</div>
-		</div>
-	</div>
+	<%@include file="layout/footer.jsp" %>
 </body>
 </html>
 
