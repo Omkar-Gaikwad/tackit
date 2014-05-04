@@ -1,5 +1,7 @@
 package com.tackit.domain;
 
+import java.util.ArrayList;
+
 public class User {
 
 	private String id;	
@@ -7,6 +9,8 @@ public class User {
 	private String password;
 	private String firstName;
 	private String lastName;
+	
+	ArrayList<DashBoard> myBoards;
 	
 	public User(String id, String email, String password, String firstName,
 			String lastName) {
@@ -60,6 +64,21 @@ public class User {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public ArrayList<DashBoard> getMyBoards() {
+		return myBoards;
+	}
+
+	public void setMyBoards(ArrayList<DashBoard> myBoards) {
+		this.myBoards = myBoards;
+	}
+	
+	public void addMyBoards( DashBoard board ){
+		if ( null == myBoards ){
+			myBoards = new ArrayList<DashBoard>();
+		}
+		myBoards.add(board);
 	}
 		
 }

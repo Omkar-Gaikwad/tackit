@@ -1,10 +1,17 @@
 package com.tackit.dao;
 
+import java.util.Iterator;
+
+import org.bson.types.ObjectId;
+
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.tackit.domain.DashBoard;
+import com.tackit.domain.Tack;
 import com.tackit.domain.User;
 
 /**
@@ -12,6 +19,95 @@ import com.tackit.domain.User;
  * 
  */
 public class UserDao {
+	
+	
+	public int addToMyDashBoard ( String uId , String boardId){
+		
+	
+		DB db = MongoConnection.getConn();
+	
+		DBCollection userCollection = db.getCollection("User");
+		
+
+		ObjectId usrid = new ObjectId( uId );
+		
+		System.out.println("usrid" + usrid );
+		
+		BasicDBObject searchUser = new BasicDBObject();			
+		searchUser.put("_id", usrid );
+		
+		
+		BasicDBObject newDash = new BasicDBObject();			
+		newDash.append("dashboards", boardId );
+		
+		BasicDBObject originalDash = new BasicDBObject();			
+		originalDash.put("$addToSet", newDash);
+	
+		System.out.println("originalDash" + originalDash);
+		
+		userCollection.update(searchUser, originalDash );
+		
+		DBCursor cursorDoc2 = userCollection.find();
+
+		while (cursorDoc2.hasNext()) {
+			System.out.println(cursorDoc2.next());
+		}
+		
+		
+		
+		return 0;
+	}
+	
+	public User getUserById( String uid ){
+		
+		
+		DB db = MongoConnection.getConn();
+
+		DBCollection userCollection = db.getCollection("User");
+		
+		ObjectId userobjid = new ObjectId( uid );
+		
+		BasicDBObject searchUserdocument = new BasicDBObject();
+
+		searchUserdocument.put("_id", userobjid );
+		
+		DBCursor cursorDoc = userCollection.find( searchUserdocument );
+		
+		while (cursorDoc.hasNext()) {
+			
+			DBObject userdoc = cursorDoc.next();
+		
+			User usr = new User();
+			
+			usr.setId(uid);
+			usr.setFirstName( userdoc.get("FirstName").toString() );
+			usr.setLastName( userdoc.get("LastName").toString() );
+			usr.setEmail( userdoc.get("Email").toString() );
+			
+			BasicDBList boardsList = ( BasicDBList ) userdoc.get( "dashboards" );
+			
+			DashBoardDao dbdo = new DashBoardDao();
+			
+			for( Iterator< Object > it = boardsList.iterator(); it.hasNext(); ) {
+				String boardListid     =  (String) it.next();
+				
+				System.out.println("boardListid  " + boardListid);
+				
+				DashBoard d = dbdo.getDashboardById( boardListid );
+				
+				if ( null != d ){
+					usr.addMyBoards(d);
+				}						
+			}
+			
+			return usr;
+			
+		}
+		return null;
+		
+	}
+	
+	
 
 	public User getUser(String email) {
 
@@ -28,7 +124,7 @@ public class UserDao {
 		document.put("Email", email);
 
 		DBCursor cursorDoc = collection.find( document );
-		
+	
 		User u = null;
 
 		while (cursorDoc.hasNext()) {
@@ -37,7 +133,7 @@ public class UserDao {
 			
 			System.out.println( doc );
 			
-			u = new User();			
+			u = new User();	
 			
 			u.setId( doc.get("_id").toString());
 			u.setEmail( doc.get("Email").toString());
@@ -104,7 +200,7 @@ public class UserDao {
 			
 			System.out.println( doc );
 			
-			u = new User();			
+			u = new User();	
 			
 			u.setId( doc.get("_id").toString());
 			u.setEmail( doc.get("Email").toString());
