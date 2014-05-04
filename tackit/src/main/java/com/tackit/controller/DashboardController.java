@@ -7,8 +7,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-
-import com.tackit.domain.Tacks;
+import com.tackit.domain.Tack;
 //import com.sun.jersey.core.header.FormDataContentDisposition;
 //import com.sun.jersey.multipart.FormDataParam;
 import com.tackit.domain.User;
@@ -26,10 +25,10 @@ public class DashboardController {
 							) {
 		String output;
 		
-		Tacks tacks = new Tacks();
+		Tack tacks = new Tack();
 		
 		tacks.setURL(url);
-		tacks.addTags(tags);
+		//tacks.addTags(tags);
 		output = "Got msg";
 		
 		//TacksManager tm = new TacksManager();
