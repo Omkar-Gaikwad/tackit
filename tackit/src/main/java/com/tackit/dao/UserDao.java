@@ -77,6 +77,44 @@ public class UserDao {
 		}
 
 		return 0;
+	}
+	
+	
+	public User getById( String id){
+		
+		DB db = MongoConnection.getConn();
 
+		DBCollection collection = db.getCollection("User");
+
+		// search user in  database
+
+		System.out.println(" searching user in db " + id );
+
+		BasicDBObject document = new BasicDBObject();
+
+		document.put("_id", id);
+
+		DBCursor cursorDoc = collection.find( document );
+		
+		User u = null;
+
+		while (cursorDoc.hasNext()) {
+			
+			DBObject doc = cursorDoc.next();
+			
+			System.out.println( doc );
+			
+			u = new User();			
+			
+			u.setId( doc.get("_id").toString());
+			u.setEmail( doc.get("Email").toString());
+			u.setPassword( doc.get("Password").toString());
+			u.setFirstName( doc.get("FirstName").toString() );
+			u.setLastName( doc.get("LastName").toString());
+			
+		}
+
+		return u;
+		
 	}
 }

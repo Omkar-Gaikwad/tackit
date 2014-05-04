@@ -6,9 +6,7 @@ public class Tacks {
 
 	String URL;
 	ArrayList<String> tags;
-	ArrayList<String> comments;
-	
-	
+
 	public String getURL() {
 		return URL;
 	}
@@ -32,21 +30,6 @@ public class Tacks {
 		this.tags = tags;
 	}
 	
-	public ArrayList<String> getComments() {
-		return comments;
-	}
 	
-	public void addComments( String comment) {
-		
-		if ( null == comments ){
-			comments = new ArrayList<String>();
-		}
-		
-		this.comments.add(comment);
-	}	
-	
-	public void setComments(ArrayList<String> comments) {
-		this.comments = comments;
-	}
 
 }

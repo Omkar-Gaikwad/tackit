@@ -2,6 +2,8 @@ package com.tackit.domain;
 
 import java.util.ArrayList;
 
+import com.tackit.dao.DashBoardDao;
+
 public class DashBoard {
 	
 	String title;
@@ -62,4 +64,17 @@ public class DashBoard {
 		tacks.add(tack);;
 	}
 
+	
+	public static void main(String[] args) {
+		
+		DashBoard db = new DashBoard();
+		
+		db.setTitle("My Dash");
+		db.setOwner("someid");
+		
+		DashBoardDao dbd = new DashBoardDao();
+		
+		dbd.addDash(db);
+	}
+	
 }
