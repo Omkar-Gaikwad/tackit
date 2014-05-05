@@ -83,7 +83,7 @@
 				
 				/* $("#myModal3").close(); */
 				$('#myModal3').modal({show: false})
-				
+				alert('Tack successfully added to the Board')
 				//window.location.href = "homepage.jsp";
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
