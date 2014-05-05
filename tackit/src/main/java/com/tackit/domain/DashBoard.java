@@ -87,39 +87,6 @@ public class DashBoard {
 		this.description = description;
 	}
 	
-	public static void main(String[] args) {
-		
-		/*
-		DashBoard db = new DashBoard();
-		
-		db.setTitle("My Dash");
-		db.setOwner("5365d64f036434a33d151d43");
-		
-		DashBoardDao dbd = new DashBoardDao();
-		
-		dbd.addDash(db);*/
-	
-		Tack t = new Tack();
-		
-		t.setURL("MyURLNew");
-		
-		TackDao tbd = new TackDao();
-		
-		tbd.addTack( "5365d71f0c5259f3b6445fec", t);		
-		
-		DashBoardDao dbd = new DashBoardDao();
-		
-		DashBoard db = dbd.getDashboardById("5365d71f0c5259f3b6445fec");
-		
-		System.out.println("db.toString() " + db.toString() + "number of urls " + db.getTackList().size() );
-		
-		for ( Tack t1 : db.getTackList() ){
-			
-			System.out.println(t1.getURL() + "       " + t1.getId());
-			
-		}
-		
-	}
 
 	public ArrayList<Tack> getTackList() {
 		return tackList;

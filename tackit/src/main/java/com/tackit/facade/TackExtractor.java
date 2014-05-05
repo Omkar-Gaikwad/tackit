@@ -72,42 +72,7 @@ public class TackExtractor {
             return s;
     }
     
-    public static void main(String[] args) {
-    	
-		System.out.println( " getting all tacks ");
-		
-		TackDao td = new TackDao();
-		
-		ArrayList<Tack> arrt = td.getAllTacksDashandUserInfo();		
-		
-		System.out.println( "arr taack "  + arrt.size() );	
-		
-		for ( Tack t : arrt ){
 
-			System.out.println(  "t.getId()"  + t.getId()  );
-			System.out.println(  "t.getURL()"  + t.getURL()  );
-			
-			try {
-				
-				for ( DashBoard d :  t.getDashboardlist() ){
-					
-					System.out.println( d.getId() );
-					System.out.println( d.getTitle() );
-					System.out.println( d.getOwner().getId() );
-					System.out.println( d.getOwner().getFirstName() );
-					System.out.println( d.getOwner().getLastName() );
-					System.out.println( d.getOwner().getEmail() );
-					
-				}
-			}catch ( Exception e){
-				
-				System.out.println(" Tack extractor java main ");
-				e.printStackTrace();
-			}
-			
-		}
-		
-	}
     
 }
 
