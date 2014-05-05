@@ -64,7 +64,7 @@
 	}
 	
 	function addToBoard(id){
-		alert(id);
+		
 		 $("#myModal3").modal('show'); 
 		/* $('#myModal3').modal({show: false}); */
 		
@@ -72,8 +72,7 @@
 	}
 	
 	function function1(id){
-		alert(imageUrl);
-		alert(id);
+		
 		
 		$.ajax({
 			url : "tackit/user/addTack",
@@ -81,7 +80,7 @@
 			data : "boardId=" + id + "&imageUrl="+imageUrl,
 
 			success : function(data, textStatus, jqXHR) {
-				alert('success');
+				
 				/* $("#myModal3").close(); */
 				$('#myModal3').modal({show: false})
 				
@@ -104,16 +103,16 @@
 
 <script type="text/javascript">
 	function submiturl1(form) {
-		alert("test");
-		alert(document.getElementById("url").value);
+		
+		
 	}
 	function submiturl() {
 
-		alert('inside submiturl');
+		
 
 		var url = $('#url').val();
 
-		alert('url: ' + url);
+		
 
 		$.ajax({
 			url : "tackit/user/url",
@@ -121,7 +120,7 @@
 			data : "url=" + url,
 
 			success : function(data, textStatus, jqXHR) {
-				alert('success');
+				
 				modal2()
 				
 				//window.location.href = "homepage.jsp";

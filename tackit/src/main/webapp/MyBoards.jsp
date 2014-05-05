@@ -70,7 +70,7 @@
 				<% if(session.getAttribute("username") != null) { %>
 				<ul class="nav">
 					<li><a href="/project-vars/viewProjects.htm"
-						style="color: white;">View Projects</a></li>
+						style="color: white;"></a></li>
 				</ul>
 				<% } %>
 				<% if(session.getAttribute("username") == null) { %>
@@ -167,11 +167,11 @@
                     function func()            
                     {
                     	$.Dialog.close();
-                    	alert('inside submiturl');
+                    	
 
                 		var BoardName = $('#BoardName').val();
                 		var BoardDescription = $('#BoardDescription').val();
-                		alert('BoardName: ' + BoardName);
+                		
 
                 		$.ajax({
                 			url : "tackit/user/pinboard",
@@ -194,7 +194,7 @@
                 			datatype : 'text',
 
                 			success : function(data, textStatus, jqXHR) {
-                				alert('success');
+                				alert('Board Added');
                 								
                 				window.location.href = "MyBoards.jsp";
                 			},
