@@ -47,10 +47,7 @@ public class UserManagement {
 					
 				}
 			}
-			
-			
 		}
-
 	}
 	
 	public int createUser( User u ){
@@ -60,7 +57,7 @@ public class UserManagement {
 	
 
 	
-	public User getUserBoardsAnsTacks(  String usersObjId ){
+	public User getUserBoardsAndTacks(  String usersObjId ){
 		
 		UserDao ud = new UserDao();
 		
