@@ -109,7 +109,7 @@
 						<li class="active"><a href="#">Home Board</a></li>
 						<li><a href="#">Profile</a></li>
 						<li><a href="#">Settings</a></li>
-						<li><a href="pinboard.jsp">MyBoards</a></li>
+						<li><a href="MyBoards.jsp">MyBoards</a></li>
 
 					</ul>
 				</div>
@@ -213,8 +213,7 @@
 														<h3>Thumbnail label</h3>
 														<p>...</p>
 														<p>
-															<a href="#" class="btn btn-primary" role="button">Button</a>
-															<a href="#" class="btn btn-default" role="button">Button</a>
+															<a href="#" class="btn btn-primary" role="button">Pin It</a>
 														</p>
 													</div>
 												</div>
