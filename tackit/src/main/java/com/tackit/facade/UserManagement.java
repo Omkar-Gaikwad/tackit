@@ -58,6 +58,16 @@ public class UserManagement {
 		return ud.addUser(u);
 	}
 	
+	public User getUserInfo(  String email , String password ){
+		
+		UserDao ud = new UserDao();
+		
+		User u = ud.getUser(email);
+		
+		return u;
+		
+	}
+	
 	
 	public int validateUser( String email , String password ){
 		
