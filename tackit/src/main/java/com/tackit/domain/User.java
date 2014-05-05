@@ -80,6 +80,17 @@ public class User {
 		}
 		myBoards.add(board);
 	}
+	
+	public ArrayList<String> getDashBoardNames(){
+		
+		ArrayList<String> dashBoardNames = new ArrayList<String>();
+		
+		for ( DashBoard d : this.myBoards){
+			dashBoardNames.add( d.getTitle());
+		}
+		return dashBoardNames;
+		
+	}
 		
 }
 
