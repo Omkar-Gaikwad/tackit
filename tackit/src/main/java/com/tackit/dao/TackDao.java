@@ -55,20 +55,17 @@ public class TackDao {
 				}
 			}
 			allTacks.add(t);			
-		}	
-		
-		
-		return allTacks;
-		
+		}
+		return allTacks;		
 	}
 	
-	public Tack getTackbyId( String id ){
+	public Tack getTackbyId( String tackId ){
 		
 		DB db = MongoConnection.getConn();
 
 		DBCollection tackCollection = db.getCollection("Tack");
 		
-		ObjectId tackobjid = new ObjectId( id );
+		ObjectId tackobjid = new ObjectId( tackId );
 		
 		BasicDBObject seaarchtackdocument = new BasicDBObject();
 
@@ -76,22 +73,24 @@ public class TackDao {
 		
 		DBCursor cursorDoc = tackCollection.find(seaarchtackdocument);
 		
+		Tack t = null;
+		
 		while (cursorDoc.hasNext()) {
 			
 			DBObject doc = cursorDoc.next();
 			
 			System.out.println( " tack dao get tack by id " + doc );
 		
-			Tack t = new Tack();
+			t = new Tack();
 			
-			t.setId(id);
+			t.setId( tackId );
 			
 			t.setURL(  doc.get("URL").toString() );
 			
-			return t;		
+			break;		
 		}		
 		
-		return null;		
+		return t;		
 		
 	}
 

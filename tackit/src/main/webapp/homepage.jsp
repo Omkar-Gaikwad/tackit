@@ -18,11 +18,13 @@ we are heer
 <%=request.getSession().getAttribute("username") %>
 
 <% 
-	List<String> urls = (List<String>)request.getSession().getAttribute("imageUrls");
-System.out.println("object check" + urls);
-	for (String str: urls) {
-		System.out.println("in the jsp" + str);
-	}
+
+		List<String> urls = (List<String>)request.getSession().getAttribute("imageUrls");
+		System.out.println("object check" + urls);
+		for (String str: urls) {
+			System.out.println("in the jsp" + str);
+		}
+	
 %>
 
 <c:forEach var="item" items="${imageUrls}">

@@ -81,6 +81,18 @@ public class DashBoard {
 		this.id = id;
 	}
 	
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 	public static void main(String[] args) {
 		
 		/*
@@ -115,16 +127,6 @@ public class DashBoard {
 		
 	}
 
-	public void setOwner(User owner) {
-		this.owner = owner;
-	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 	
 }

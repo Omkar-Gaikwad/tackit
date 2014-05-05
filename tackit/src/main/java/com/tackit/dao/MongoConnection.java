@@ -20,6 +20,7 @@ public class MongoConnection {
 	        MongoClient mongo = new MongoClient(uri);
 			
 			System.out.println("connected");
+			
 			DB db = mongo.getDB("tackit");
 			
 			return db;

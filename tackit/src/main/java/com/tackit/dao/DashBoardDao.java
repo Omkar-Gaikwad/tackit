@@ -51,9 +51,9 @@ public class DashBoardDao{
 			
 			board.setOwner( dashBoardDoc.get("Owner").toString() ); // set Description
 			
-			UserDao ud = new UserDao();
+			UserDao userDao = new UserDao();
 			
-			board.setOwner(  ud.getUserDetailsNodashById( board.getOwner().getId() ));	// set owner user object
+			board.setOwner(  userDao.getUserDetailsNodashById( board.getOwner().getId() ));	// set owner user object
 			
 			break;		
 		}			
@@ -119,7 +119,7 @@ public class DashBoardDao{
 	}
 	
 	
-	public int addDash( DashBoard d ){
+	public int addDash( DashBoard dashBoardtoAdd ){
 		
 		DB db = MongoConnection.getConn();
 
@@ -129,14 +129,11 @@ public class DashBoardDao{
 		
 		BasicDBObject Dashdocument = new BasicDBObject();	// this is dash to add
 
-		Dashdocument.put("Title", d.getTitle() );
+		Dashdocument.put("Title", dashBoardtoAdd.getTitle() );
 		
-		Dashdocument.put( "Owner" , d.getOwner() );
+		Dashdocument.put( "Owner" , dashBoardtoAdd.getOwner() );
 		
-		Dashdocument.put( "Description" , d.getDescription() );
-		
-		
-		ArrayList<BasicDBObject> followersList = new ArrayList<BasicDBObject>();  // to do
+		Dashdocument.put( "Description" , dashBoardtoAdd.getDescription() );
 		
 		dashCollection.insert(Dashdocument);	// add new dash board
 		
@@ -148,11 +145,9 @@ public class DashBoardDao{
 			
 			String dashId = doc.get("_id").toString();	// get dash id new field
 			
-			System.out.println("dashboards" + dashId);
-			
 			System.out.println( doc );
 			
-			ObjectId objid = new ObjectId( d.getOwner().getId() ); 	// search for user
+			ObjectId objid = new ObjectId( dashBoardtoAdd.getOwner().getId() ); 	// search for user
 			
 			System.out.println("objid" + objid );
 			
@@ -178,7 +173,7 @@ public class DashBoardDao{
 				System.out.println(cursorDoc2.next());
 			}
 			
-		}		
+		}
 		
 		return 0;
 	}
