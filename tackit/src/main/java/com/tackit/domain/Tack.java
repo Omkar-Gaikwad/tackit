@@ -15,7 +15,10 @@ public class Tack {
 		return URL;
 	}
 	public void setURL(String uRL) {
-		URL = uRL;
+		
+		if ( null != uRL ){
+			URL = uRL;
+		}
 	}
 	public ArrayList<DashBoard> getDashboardlist() {
 		return dashboardlist;

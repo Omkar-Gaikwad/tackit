@@ -1,5 +1,6 @@
 package com.tackit.dao;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.bson.types.ObjectId;
@@ -10,9 +11,56 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.tackit.domain.DashBoard;
 import com.tackit.domain.Tack;
 
 public class TackDao {
+	
+	
+	public ArrayList<Tack> getAllTacksDashandUserInfo(){
+		
+		DB db = MongoConnection.getConn();
+
+		DBCollection tackCollection = db.getCollection("Tack");
+		
+		DBCursor cursorDoc = tackCollection.find( );
+		
+		ArrayList<Tack> allTacks = new ArrayList<Tack>();
+		
+		while (cursorDoc.hasNext()) {
+			
+			DBObject doc = cursorDoc.next();
+		
+			Tack t = new Tack();
+			
+			t.setId (   doc.get("_id").toString() );
+			t.setURL(  doc.get("URL").toString() );
+			
+			
+			BasicDBList boardsList = ( BasicDBList ) doc.get( "Board" );
+			
+			if ( null != boardsList ){
+				DashBoardDao dbdo = new DashBoardDao();
+				
+				for( Iterator< Object > it = boardsList.iterator(); it.hasNext(); ) {
+					String boardListId =  (String) it.next();
+					
+					System.out.println("boardListId  " + boardListId );
+					
+					DashBoard d = dbdo.getDashBoardNameandOwner( boardListId );
+					
+					if ( null != d ){
+						t.addDashboardlist(d);
+					}				
+				}
+			}
+			allTacks.add(t);			
+		}	
+		
+		
+		return allTacks;
+		
+	}
 	
 	public Tack getTackbyId( String id ){
 		
@@ -31,18 +79,19 @@ public class TackDao {
 		while (cursorDoc.hasNext()) {
 			
 			DBObject doc = cursorDoc.next();
+			
+			System.out.println( " tack dao get tack by id " + doc );
 		
 			Tack t = new Tack();
 			
-			t.setId(id);;
+			t.setId(id);
+			
 			t.setURL(  doc.get("URL").toString() );
 			
-			return t;
-		
+			return t;		
 		}		
 		
-		return null;
-		
+		return null;		
 		
 	}
 
@@ -51,60 +100,67 @@ public class TackDao {
 		
 		DB db = MongoConnection.getConn();
 
-		DBCollection tackCollection = db.getCollection("Tack");
-
-		System.out.println(" Adding tack in database ");
+		DBCollection tackCollection = db.getCollection("Tack");		
 		
 		BasicDBObject tackdocument = new BasicDBObject();
 
-		tackdocument.put("URL", t.getURL() );
+		tackdocument.put("URL", t.getURL() );  // create tack with url
 		
-		tackdocument.put( "Board" , b );
+		System.out.println(" Adding tack in database " + tackdocument );
 		
-		tackCollection.insert(tackdocument);
+		tackCollection.insert(tackdocument);	// // add tack
 		
-		DBCursor cursorDoc = tackCollection.find(tackdocument);
+		DBCursor cursorDoc = tackCollection.find(tackdocument); // get same tack back
 		
 		while (cursorDoc.hasNext()) {
 			
 			DBObject doc = cursorDoc.next();
 			
-			String tackId = doc.get("_id").toString();
+			String tackId = doc.get("_id").toString();	// get id of new tack
 			
 			DBCollection dashCollection = db.getCollection("DashBoard");
 			
-			System.out.println("tackId" + tackId);
+			System.out.println(  " tack dao get new added tack with id " +  doc );
 			
-			System.out.println( doc );
+			ObjectId objid = new ObjectId( b );	// search board
 			
-			ObjectId objid = new ObjectId( b );
-			
-			System.out.println("objid" + objid );
-			
-			BasicDBObject searchBoard = new BasicDBObject();			
+			BasicDBObject searchBoard = new BasicDBObject();	// search board query		
 			searchBoard.put("_id", objid );
 			
-			BasicDBObject newTack = new BasicDBObject();			
+			BasicDBObject newTack = new BasicDBObject();		// add tack to board	
 			newTack.append("Tacks", tackId );
 			
 			BasicDBObject newTackList = new BasicDBObject();			
-			newTackList.put("$push", newTack );
+			newTackList.put("$push", newTack );					// puch tack to array
 			
-			System.out.println("newTack" + newTackList);
+			System.out.println("newTack  " + newTackList);
 			
-			dashCollection.update( searchBoard , newTackList );
+			dashCollection.update( searchBoard , newTackList ); // update board
 			
-			DBCursor cursorDoc2 = dashCollection.find();
-
-			while (cursorDoc2.hasNext()) {
-				System.out.println(cursorDoc2.next());
-			}
+			//===========================================
+			
+			ObjectId tackobjid = new ObjectId( tackId );	// search tack
+			
+			System.out.println("tackobjid " + tackobjid );
+			
+			BasicDBObject searchThisTack = new BasicDBObject();	// search tack query		
+			searchThisTack.put("_id", tackobjid );
+			
+			BasicDBObject newBoardId = new BasicDBObject();		// add board to tack	
+			newBoardId.append("Board", b );
+			
+			BasicDBObject newBoardList = new BasicDBObject();			
+			newBoardList.put("$push", newBoardId );					// push board id to array
+			
+			System.out.println("newBoardList " + newBoardList);
+			
+			tackCollection.update( searchThisTack , newBoardList ); // update tack
+			
+			//============================================================
 			
 		}
 		
 		return 0;
 		
-	}
-
-	
+	}	
 }

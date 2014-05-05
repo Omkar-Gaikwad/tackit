@@ -8,6 +8,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.tackit.dao.TackDao;
+import com.tackit.domain.DashBoard;
+import com.tackit.domain.Tack;
+
 import java.util.ArrayList;
 
 /**
@@ -67,5 +71,43 @@ public class TackExtractor {
         else
             return s;
     }
+    
+    public static void main(String[] args) {
+    	
+		System.out.println( " getting all tacks ");
+		
+		TackDao td = new TackDao();
+		
+		ArrayList<Tack> arrt = td.getAllTacksDashandUserInfo();		
+		
+		System.out.println( "arr taack "  + arrt.size() );	
+		
+		for ( Tack t : arrt ){
+
+			System.out.println(  "t.getId()"  + t.getId()  );
+			System.out.println(  "t.getURL()"  + t.getURL()  );
+			
+			try {
+				
+				for ( DashBoard d :  t.getDashboardlist() ){
+					
+					System.out.println( d.getId() );
+					System.out.println( d.getTitle() );
+					System.out.println( d.getOwner().getId() );
+					System.out.println( d.getOwner().getFirstName() );
+					System.out.println( d.getOwner().getLastName() );
+					System.out.println( d.getOwner().getEmail() );
+					
+				}
+			}catch ( Exception e){
+				
+				System.out.println(" Tack extractor java main ");
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
+    
 }
 

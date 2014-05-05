@@ -60,7 +60,6 @@ public class UserDao {
 	
 	public User getUserById( String uid ){
 		
-		
 		DB db = MongoConnection.getConn();
 
 		DBCollection userCollection = db.getCollection("User");
@@ -176,7 +175,7 @@ public class UserDao {
 	}
 	
 	
-	public User getById( String id){
+	public User getUserDetailsNodashById( String id){	// only User no dash boards
 		
 		DB db = MongoConnection.getConn();
 
@@ -185,12 +184,16 @@ public class UserDao {
 		// search user in  database
 
 		System.out.println(" searching user in db " + id );
+		
+		
+		ObjectId userobjid = new ObjectId( id );
+		
+		BasicDBObject searchUserDocument = new BasicDBObject();
 
-		BasicDBObject document = new BasicDBObject();
+		searchUserDocument.put("_id", userobjid );
 
-		document.put("_id", id);
 
-		DBCursor cursorDoc = collection.find( document );
+		DBCursor cursorDoc = collection.find( searchUserDocument );
 		
 		User u = null;
 

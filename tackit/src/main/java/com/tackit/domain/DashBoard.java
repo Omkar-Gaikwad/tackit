@@ -9,7 +9,7 @@ public class DashBoard {
 	
 	String id;
 	String title;
-	String owner;
+	User owner;
 	ArrayList<User> followerlist;
 	ArrayList<Tack> tackList;
 	
@@ -22,12 +22,17 @@ public class DashBoard {
 		this.title = title;
 	}
 
-	public String getOwner() {
+	public User getOwner() {
 		return owner;
 	}
 
 	public void setOwner(String owner) {
-		this.owner = owner;
+		
+		if ( null == this.owner ){
+			this.owner = new User();
+		}
+		
+		this.owner.setId( owner );
 	}
 
 	public ArrayList<User> getFollowerlist() {
@@ -89,7 +94,7 @@ public class DashBoard {
 	
 		Tack t = new Tack();
 		
-		t.setURL("MyURL");
+		t.setURL("MyURLNew");
 		
 		TackDao tbd = new TackDao();
 		
@@ -103,9 +108,14 @@ public class DashBoard {
 		
 		for ( Tack t1 : db.getTacks() ){
 			
-			System.out.println(t1.getURL()+t1.getId());
+			System.out.println(t1.getURL() + "       " + t1.getId());
 			
 		}
+		
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 	
 }
