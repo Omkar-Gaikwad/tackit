@@ -49,6 +49,10 @@
 <!--  -->
 
 <script type="text/javascript">
+	function submiturl1(form) {
+		alert("test");
+		alert(document.getElementById("url").value);
+	}
 	function submiturl() {
 
 		alert('inside submiturl');
@@ -64,7 +68,7 @@
 
 			success : function(data, textStatus, jqXHR) {
 				alert('success');
-				window.location.href = "signup.jsp";
+				window.location.href = "homepage.jsp";
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
 				alert('Could not process request.. ' + errorThrown);
@@ -158,6 +162,8 @@
 											data-dismiss="modal">Close</button>
 										<button type="submit" id="submiturl" class="btn btn-primary"
 											onclick="submiturl()">Submit</button>
+											<button type="button" id="submiturl1" class="btn btn-primary"
+											onclick="submiturl1(this.form)">Submit1</button>
 									</div>
 								</div>
 							</div>

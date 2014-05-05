@@ -106,7 +106,8 @@ public class AuthController {
 
 	@POST
 	@Path("/url")
-	public Response submitUrl(@FormParam("url") String url){
+	public Response submitUrl(@FormParam("url") String url,
+			@Context HttpServletRequest req){
 		System.out.println("the ur printed is: "+url);
 		User user = new User();
 		//user.setURL(url);
@@ -130,6 +131,8 @@ public class AuthController {
 			System.out.println(s);
 		}
 		
+		HttpSession session= req.getSession(true);
+		 session.setAttribute("imageUrls", imageUrls);
 		
 		return Response.status(200).entity(output).build();
 	}

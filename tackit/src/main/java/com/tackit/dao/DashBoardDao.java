@@ -17,84 +17,88 @@ import com.tackit.domain.User;
 
 public class DashBoardDao{
 	
-	
-	public DashBoard getDashBoardNameandOwner( String dbid ){
+	public DashBoard getDashBoardNameAndOwner( String dashBoardId ){ // get dash board name and owner only no tacks
 		
 		DB db = MongoConnection.getConn();
 
-		DBCollection dashCollection = db.getCollection("DashBoard");
+		DBCollection dashBoardCollection = db.getCollection("DashBoard"); // open connection
 		
-		ObjectId boardobjid = new ObjectId( dbid );
+		ObjectId dashBoardIdObj = new ObjectId( dashBoardId );
 		
-		BasicDBObject searchDashdocument = new BasicDBObject();
+		BasicDBObject searchDashdocument = new BasicDBObject(); // create search document
 
-		searchDashdocument.put("_id", boardobjid );
+		searchDashdocument.put("_id", dashBoardIdObj );
 		
-		DBCursor cursorDoc = dashCollection.find( searchDashdocument );
+		DBCursor cursordashBoardCollection = dashBoardCollection.find( searchDashdocument ); // get doc from database
 		
-		while (cursorDoc.hasNext()) {
+		DashBoard board = null;
+		
+		while ( cursordashBoardCollection.hasNext() ) {
 			
-			DBObject doc = cursorDoc.next();
+			DBObject dashBoardDoc = cursordashBoardCollection.next();
 			
-			DashBoard board = new DashBoard();
+			board = new DashBoard();
 			
-			System.out.println(doc);
+			System.out.println(dashBoardDoc);
 			
-			board.setTitle( doc.get("Title").toString()  );
+			board.setTitle( dashBoardDoc.get("Title").toString()  );	// get title
 			
 			System.out.println(  "board.getTitle" + board.getTitle()    );
 			
-			board.setId(dbid);
+			board.setId( dashBoardId );	// set id
 			
-			board.setOwner( doc.get("Owner").toString() );
+			board.setOwner( dashBoardDoc.get("Owner").toString() ); // set owner id 
+			
+			board.setOwner( dashBoardDoc.get("Owner").toString() ); // set Description
 			
 			UserDao ud = new UserDao();
 			
-			board.setOwner(  ud.getUserDetailsNodashById( board.getOwner().getId() ));
+			board.setOwner(  ud.getUserDetailsNodashById( board.getOwner().getId() ));	// set owner user object
 			
-			return board;		
+			break;		
 		}			
 		
-		return null;
+		return board;
 		
 	}
 
 	
-	public DashBoard getDashboardById( String did ){ // gives back tacks
+	public DashBoard getDashboardById( String dashBoardId ){ // gives back tacks
 		
 		DB db = MongoConnection.getConn();
 
-		DBCollection dashCollection = db.getCollection("DashBoard");
+		DBCollection dashBoardCollection = db.getCollection("DashBoard");	// get collection
 		
-		ObjectId boardobjid = new ObjectId( did );
+		ObjectId boardIdObj = new ObjectId( dashBoardId );
 		
 		BasicDBObject searchDashdocument = new BasicDBObject();
 
-		searchDashdocument.put("_id", boardobjid );
+		searchDashdocument.put("_id", boardIdObj );		// create search document
 		
-		DBCursor cursorDoc = dashCollection.find( searchDashdocument );
+		DBCursor cursorDashBoard = dashBoardCollection.find( searchDashdocument );  // get cursor
 		
-		while (cursorDoc.hasNext()) {
+		DashBoard board = null;
+		
+		while ( cursorDashBoard.hasNext()) {
 			
-			DBObject doc = cursorDoc.next();
+			DBObject dashBoardDoc = cursorDashBoard.next();
 			
-			DashBoard board = new DashBoard();
+			System.out.println(  " dashBoardDoc "  + dashBoardDoc );
 			
-			board.setTitle( doc.get("Title").toString()  );
+			board = new DashBoard();
 			
-			System.out.println(  "board.getTitle" + board.getTitle()    );
+			board.setTitle( dashBoardDoc.get("Title").toString()  );	// set title
 			
-			System.out.println(  "get dash"  + doc );
+			board.setId( dashBoardId );						// set dashboard id
 			
-			System.out.println(  " get owner to string "  + doc.get("Owner").toString()  );
+			board.setOwner( dashBoardDoc.get("Owner").toString() );
 			
-			board.setId(did);
-			board.setOwner( doc.get("Owner").toString() );
+			board.setDescription( dashBoardDoc.get("Description").toString() );
 			
-			board.setDescription( doc.get("Owner").toString() );
+			BasicDBList tacksList = ( BasicDBList ) dashBoardDoc.get( "Tacks" );
 			
-			BasicDBList tacksList = ( BasicDBList ) doc.get( "Tacks" );
 			if ( null != tacksList ){
+				
 				TackDao tdo = new TackDao();
 				
 				for( Iterator< Object > it = tacksList.iterator(); it.hasNext(); ) {
@@ -109,9 +113,9 @@ public class DashBoardDao{
 					}				
 				}		
 			}
-			return board;		
+			break;		
 		}		
-		return null;
+		return board;
 	}
 	
 	
@@ -129,7 +133,7 @@ public class DashBoardDao{
 		
 		Dashdocument.put( "Owner" , d.getOwner() );
 		
-		Dashdocument.put( "description" , d.getDescription() );
+		Dashdocument.put( "Description" , d.getDescription() );
 		
 		
 		ArrayList<BasicDBObject> followersList = new ArrayList<BasicDBObject>();  // to do

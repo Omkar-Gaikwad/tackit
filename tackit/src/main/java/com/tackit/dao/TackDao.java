@@ -21,36 +21,36 @@ public class TackDao {
 		
 		DB db = MongoConnection.getConn();
 
-		DBCollection tackCollection = db.getCollection("Tack");
+		DBCollection tackCollection = db.getCollection("Tack");	// get tacks collection
 		
-		DBCursor cursorDoc = tackCollection.find( );
+		DBCursor cursorTacks = tackCollection.find( );
 		
-		ArrayList<Tack> allTacks = new ArrayList<Tack>();
+		ArrayList<Tack> allTacks = new ArrayList<Tack>(); // array list to return tacks
 		
-		while (cursorDoc.hasNext()) {
+		while (cursorTacks.hasNext()) {
 			
-			DBObject doc = cursorDoc.next();
+			DBObject tackDoc = cursorTacks.next();
 		
 			Tack t = new Tack();
 			
-			t.setId (   doc.get("_id").toString() );
-			t.setURL(  doc.get("URL").toString() );
+			t.setId (   tackDoc.get("_id").toString() );
+			t.setURL(   tackDoc.get("URL").toString() );			
 			
-			
-			BasicDBList boardsList = ( BasicDBList ) doc.get( "Board" );
+			BasicDBList boardsList = ( BasicDBList ) tackDoc.get( "Board" );
 			
 			if ( null != boardsList ){
-				DashBoardDao dbdo = new DashBoardDao();
+				
+				DashBoardDao dashBoardDao = new DashBoardDao();
 				
 				for( Iterator< Object > it = boardsList.iterator(); it.hasNext(); ) {
 					String boardListId =  (String) it.next();
 					
 					System.out.println("boardListId  " + boardListId );
 					
-					DashBoard d = dbdo.getDashBoardNameandOwner( boardListId );
+					DashBoard dashBoard = dashBoardDao.getDashBoardNameAndOwner( boardListId );
 					
-					if ( null != d ){
-						t.addDashboardlist(d);
+					if ( null != dashBoard ){
+						t.addDashboardlist( dashBoard );
 					}				
 				}
 			}
