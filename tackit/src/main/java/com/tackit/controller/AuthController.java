@@ -2,10 +2,15 @@ package com.tackit.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+
+
 
 
 
@@ -56,28 +61,49 @@ public class AuthController {
 	@POST
 	@Path("/login")
 	public Response loginProfile(@FormParam("email") String email,
-			@FormParam("password") String password){
+			@FormParam("password") String password,
+			@Context HttpServletRequest req){
+		
+		
 		System.out.println("email id is "+ email);
 		System.out.println("password is "+ password);
 		
 		UserManagement um = new UserManagement();
 		
 		int errorCode = um.validateUser(email, password);
+		
+		
 		String output;
+		System.out.println("login check "+errorCode);
 		if ( 0 == errorCode ){
 			 output = " Logging in ";
+		
+			 //Httpsession changes made at 04/05
+			 HttpSession session= req.getSession(true);
+			 session.setAttribute("username", email);
+				session.setAttribute("sessionId", session.getId());
+				output = "Login Successful for "+ email;
+		 return Response.status(200).entity(output).build(); 
+			 
 		} else if ( -1 == errorCode){
 			 output = " Login failed wrong password ";
+			 return Response.status(400).entity(output).build();	
+
 		}else if ( -99 == errorCode){
 			 output = " User Not found ";
+			 return Response.status(400).entity(output).build();	
+
+			 
 		}else{
 			 output = " Error not found";
+			 return Response.status(400).entity(output).build();	
+
 		}
 
-		return Response.status(200).entity(output).build();
+		// return Response.status(400).entity(output).build();
 	}
 	
-	
+
 	@POST
 	@Path("/url")
 	public Response submitUrl(@FormParam("url") String url){
