@@ -58,6 +58,20 @@ public class UserManagement {
 		return ud.addUser(u);
 	}
 	
+
+	
+	public User getUserBoardsAnsTacks(  String usersObjId ){
+		
+		UserDao ud = new UserDao();
+		
+		User u = ud.getUserById(usersObjId);
+		
+		return u;
+		
+	}
+	
+	
+	
 	public User getUserInfo(  String email , String password ){
 		
 		UserDao ud = new UserDao();

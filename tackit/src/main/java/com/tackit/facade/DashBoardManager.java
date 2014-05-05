@@ -6,13 +6,10 @@ import com.tackit.domain.DashBoard;
 public class DashBoardManager {
 	
 	public int addNewDashBoard( DashBoard dashBoardtoAdd ){
-
-		
+	
 		DashBoardDao dashBoardDao = new DashBoardDao();
-		
-		
-		return dashBoardDao.addDash( dashBoardtoAdd );
-			
+				
+		return dashBoardDao.addDash( dashBoardtoAdd );			
 	}
 	
 }

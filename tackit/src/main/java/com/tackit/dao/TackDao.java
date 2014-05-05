@@ -95,7 +95,7 @@ public class TackDao {
 	}
 
 	
-	public int addTack( String b ,  Tack t ){
+	public int addTack( String boardId ,  Tack tack ){
 		
 		DB db = MongoConnection.getConn();
 
@@ -103,7 +103,7 @@ public class TackDao {
 		
 		BasicDBObject tackdocument = new BasicDBObject();
 
-		tackdocument.put("URL", t.getURL() );  // create tack with url
+		tackdocument.put("URL", tack.getURL() );  // create tack with url
 		
 		System.out.println(" Adding tack in database " + tackdocument );
 		
@@ -121,7 +121,7 @@ public class TackDao {
 			
 			System.out.println(  " tack dao get new added tack with id " +  doc );
 			
-			ObjectId objid = new ObjectId( b );	// search board
+			ObjectId objid = new ObjectId( boardId );	// search board
 			
 			BasicDBObject searchBoard = new BasicDBObject();	// search board query		
 			searchBoard.put("_id", objid );
@@ -146,7 +146,7 @@ public class TackDao {
 			searchThisTack.put("_id", tackobjid );
 			
 			BasicDBObject newBoardId = new BasicDBObject();		// add board to tack	
-			newBoardId.append("Board", b );
+			newBoardId.append("Board", boardId );
 			
 			BasicDBObject newBoardList = new BasicDBObject();			
 			newBoardList.put("$push", newBoardId );					// push board id to array
