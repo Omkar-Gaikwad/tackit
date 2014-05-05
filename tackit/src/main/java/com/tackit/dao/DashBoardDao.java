@@ -91,6 +91,8 @@ public class DashBoardDao{
 			board.setId(did);
 			board.setOwner( doc.get("Owner").toString() );
 			
+			board.setDescription( doc.get("Owner").toString() );
+			
 			BasicDBList tacksList = ( BasicDBList ) doc.get( "Tacks" );
 			if ( null != tacksList ){
 				TackDao tdo = new TackDao();
@@ -126,6 +128,9 @@ public class DashBoardDao{
 		Dashdocument.put("Title", d.getTitle() );
 		
 		Dashdocument.put( "Owner" , d.getOwner() );
+		
+		Dashdocument.put( "description" , d.getDescription() );
+		
 		
 		ArrayList<BasicDBObject> followersList = new ArrayList<BasicDBObject>();  // to do
 		

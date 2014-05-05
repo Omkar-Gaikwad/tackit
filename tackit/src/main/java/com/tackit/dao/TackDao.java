@@ -131,7 +131,7 @@ public class TackDao {
 			newTack.append("Tacks", tackId );
 			
 			BasicDBObject newTackList = new BasicDBObject();			
-			newTackList.put("$push", newTack );					// puch tack to array
+			newTackList.put("$push", newTack );					// push tack to array
 			
 			System.out.println("newTack  " + newTackList);
 			

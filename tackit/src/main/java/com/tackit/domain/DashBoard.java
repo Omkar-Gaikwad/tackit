@@ -10,6 +10,7 @@ public class DashBoard {
 	String id;
 	String title;
 	User owner;
+	String description;
 	ArrayList<User> followerlist;
 	ArrayList<Tack> tackList;
 	
@@ -116,6 +117,14 @@ public class DashBoard {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 }

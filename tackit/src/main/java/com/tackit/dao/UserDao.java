@@ -98,12 +98,9 @@ public class UserDao {
 					usr.addMyBoards(d);
 				}						
 			}
-			
 			return usr;
-			
 		}
 		return null;
-		
 	}
 	
 	
@@ -212,8 +209,6 @@ public class UserDao {
 			u.setLastName( doc.get("LastName").toString());
 			
 		}
-
 		return u;
-		
 	}
 }
