@@ -16,9 +16,13 @@ import javax.ws.rs.core.Response;
 
 
 
+
+
+import com.tackit.domain.DashBoard;
 //import com.sun.jersey.core.header.FormDataContentDisposition;
 //import com.sun.jersey.multipart.FormDataParam;
 import com.tackit.domain.User;
+import com.tackit.facade.DashBoardManager;
 import com.tackit.facade.TackExtractor;
 import com.tackit.facade.UserManagement;
 
@@ -82,6 +86,7 @@ public class AuthController {
 			 HttpSession session= req.getSession(true);
 			 session.setAttribute("username", email);
 				session.setAttribute("sessionId", session.getId());
+				session.setAttribute("user", um.getUserInfo(email, password));
 				output = "Login Successful for "+ email;
 		 return Response.status(200).entity(output).build(); 
 			 
@@ -137,4 +142,34 @@ public class AuthController {
 		return Response.status(200).entity(output).build();
 	}
 
+	@POST
+	@Path("/pinboard")
+	public Response pinboard(@FormParam("BoardName") String BoardName,
+			@FormParam("BoardDescription") String BoardDescription,
+			@Context HttpServletRequest req){
+				
+		System.out.println("inside pinboard");
+		HttpSession session= req.getSession(true);
+		User user=(User) session.getAttribute("user");
+		System.out.println("user id for the board "+user.getId());
+		
+		if(null!=user){
+			DashBoardManager dashboardmanager = new DashBoardManager();
+			
+			DashBoard dashBoardtoAdd = new DashBoard();
+			dashBoardtoAdd.setOwner(user.getId());
+			dashBoardtoAdd.setTitle(BoardName);
+			dashBoardtoAdd.setDescription(BoardDescription);
+			dashboardmanager.addNewDashBoard(dashBoardtoAdd );
+			
+		}
+		String output="board created";
+		
+		return Response.status(200).entity(output).build();
+		
+		
+	}
+	
+	
+	
 }

@@ -109,7 +109,7 @@
 						<li class="active"><a href="#">Home Board</a></li>
 						<li><a href="#">Profile</a></li>
 						<li><a href="#">Settings</a></li>
-						<li><a href="MyBoards.jsp">MyBoards</a></li>
+						<li><a href="pinboard.jsp">MyBoards</a></li>
 
 					</ul>
 				</div>

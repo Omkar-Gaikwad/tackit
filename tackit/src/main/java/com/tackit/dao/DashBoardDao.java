@@ -131,7 +131,7 @@ public class DashBoardDao{
 
 		Dashdocument.put("Title", dashBoardtoAdd.getTitle() );
 		
-		Dashdocument.put( "Owner" , dashBoardtoAdd.getOwner() );
+		Dashdocument.put( "Owner" , dashBoardtoAdd.getOwner().getId() );
 		
 		Dashdocument.put( "Description" , dashBoardtoAdd.getDescription() );
 		
