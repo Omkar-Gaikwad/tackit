@@ -25,6 +25,20 @@
 			<artifactId>jersey-multipart</artifactId>
 			<version>1.8</version>
 		</dependency>
+		<!-- java tag library -->
+		<dependency>
+		<groupId>jstl</groupId>
+		<artifactId>jstl</artifactId>
+	<version>1.2</version>
+</dependency>
+
+<dependency>
+	<groupId>taglibs</groupId>
+	<artifactId>standard</artifactId>
+	<version>1.0.6</version>
+</dependency>
+   
+		
 		<dependency>
 			<!-- jsoup HTML parser library @ http://jsoup.org/ -->
 			<groupId>org.jsoup</groupId>
