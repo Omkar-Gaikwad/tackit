@@ -20,6 +20,7 @@
     <script src="js/jquery/jquery.mousewheel.js"></script>
     <script src="js/prettify/prettify.js"></script>
     
+    
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
     <!-- Metro UI CSS JavaScript plugins -->
@@ -28,6 +29,11 @@
     <!-- Local JavaScript -->
     <script src="js/docs.js"></script>
     <script src="js/github.info.js"></script>
+    
+
+  
+  <!-- jQuery Form Validation code -->
+
 
     <title>Metro UI CSS : Metro Bootstrap CSS Library</title>
 
@@ -90,14 +96,58 @@
 					<a href="/" class="element"><span class="icon-grid-view"></span> 4 Pins</a>
                     <span class="element-divider"></span>
 					<a href="/" class="element"><span class="icon-grid-view"></span> 1 Like</a>
-					<span class="element-divider"></span>
+							        
+			       
+			      
+			        
 					<div class="element place-right">
                     <a href="/" class="element" class="element place-right"><span class="icon-grid-view"></span> 0 Followers</a>
                     </div>
-                    <span class="element-divider"></span>
+                    
 					<div class="element place-right">
                      <a href="/" class="element" class="element place-right"><span class="icon-grid-view"></span> 1 Following</a>
                     </div> 
+            <span class="element-divider"></span>
+             <div class="element place-right">
+                     <button class="element" id="createboard"><span class="icon-grid-view"></span> Create Board</button>
+                    
+                    </div>
+                    <span class="element-divider"></span>
+                    <script>
+                    $("#createboard").on('click', function(){
+                        $.Dialog({
+                            overlay: true,
+                            shadow: true,
+                            flat: true,
+                            draggable: true,
+                            icon: '<span class="icon-grid-view"></span>',
+                            title: 'Flat window',
+                            content: '',
+                            padding: 10,
+                            width: 500,
+                            onShow: function(_dialog){
+                                var content = '<form class="user-input" id="register-form">' +
+                                        '<label>Board Name</label>' +
+                                        '<div class="input-control text required"><input type="text" name="boardname" id="boardname"></div>' +
+                                        '<label>Description</label>'+    
+                                        '<div class="input-control textarea">'+
+                                        '<textarea>...</textarea>'+
+                                        '</div>'+
+                                        '<div class="form-actions">' +
+                                        '<button class="button primary type="submit">Create</button>&nbsp;'+
+                                        '</div>'+
+                                        '</form>';
+
+                                $.Dialog.title("Create Board");
+                                $.Dialog.content(content);
+                            }
+                        });
+                    });
+                    
+                    
+                    
+                   
+</script>
     </nav>
 </nav>
 
@@ -261,6 +311,7 @@
     </div>
             </div>
 			</div>
+			
     </body>
 </html>
 
