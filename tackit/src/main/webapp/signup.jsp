@@ -50,14 +50,13 @@ function checkPasswordMatch(){
 function uploadFormData(){
 	$("#reEnterPasswordInput").keyup(checkPasswordMatch());
 
-	 alert('inside uploadform');
+	
 	 
 	   var fname = $('#login-firstname').val();
 	   var lname = $('#login-lastname').val();
 	   var email = $('#login-email').val();
 	   var password = $('#password').val();
-	 
-	 alert('name'+fname);
+
 	   
 		$.ajax({
 			url : "tackit/user/signup",
@@ -65,8 +64,8 @@ function uploadFormData(){
 		    data : "fname=" + fname + "&lname=" + lname + "&email=" + email + "&password=" + password,
 		   
 		    success:function(data, textStatus, jqXHR){
-		    	alert('success');
-		    	window.location.href="index.jsp";
+		   
+		    	window.location.href="login.jsp";
 		    },
 		    error: function(jqXHR, textStatus, errorThrown){
 		    	alert('Could not process request.. ' + errorThrown);

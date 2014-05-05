@@ -85,8 +85,11 @@ public class User {
 		
 		ArrayList<String> dashBoardNames = new ArrayList<String>();
 		
-		for ( DashBoard d : this.myBoards){
-			dashBoardNames.add( d.getTitle());
+		if ( null != this.myBoards ){
+		
+			for ( DashBoard d : this.myBoards){
+				dashBoardNames.add( d.getTitle());
+			}
 		}
 		return dashBoardNames;
 		
