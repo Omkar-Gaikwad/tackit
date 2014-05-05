@@ -36,9 +36,27 @@ import com.tackit.facade.UserManagement;
 
 
 
+/**
+ * @author Akshay
+ * Purpose: Connect GUI with the Business logic
+ * created on:15th April 2014
+ */
 @Path("/user")
 public class AuthController {
 
+
+/**
+ * @author Akshay Khatavkar
+ * Purpose: Used to Sign Up
+ * created on:16th April 2014
+ */
+	/**
+	 * @param fname
+	 * @param lname
+	 * @param email
+	 * @param password
+	 * @return
+	 */
 	@POST
 	@Path("/signup")
 	public Response userprofile(@FormParam("fname") String fname,
@@ -72,6 +90,18 @@ public class AuthController {
 
 	}
 
+	/**
+	 * @author Akshay
+	 * Purpose: Used to Sign in
+	 * created on:16th April 2014
+	 */
+	
+	/**
+	 * @param email
+	 * @param password
+	 * @param req
+	 * @return
+	 */
 	@POST
 	@Path("/login")
 	public Response loginProfile(@FormParam("email") String email,
@@ -131,7 +161,17 @@ public class AuthController {
 		// return Response.status(400).entity(output).build();
 	}
 
-
+	/**
+	 * @author Akshay
+	 * Purpose: Used to Process URL sent from GUI
+	 * created on:16th April 2014
+	 */
+	
+	/**
+	 * @param url
+	 * @param req
+	 * @return
+	 */
 	@POST
 	@Path("/url")
 	public Response submitUrl(@FormParam("url") String url,
@@ -165,6 +205,18 @@ public class AuthController {
 		return Response.status(200).entity(output).build();
 	}
 
+	/**
+	 * @author Akshay
+	 * Purpose: Used to Create a new Board
+	 * created on:16th April 2014
+	 */
+	
+	/**
+	 * @param BoardName
+	 * @param BoardDescription
+	 * @param req
+	 * @return
+	 */
 	@POST
 	@Path("/pinboard")
 	public Response pinboard(@FormParam("BoardName") String BoardName,
@@ -203,6 +255,16 @@ public class AuthController {
 
 	}
 
+	/**
+	 * @author Akshay
+	 * Purpose: Used to get All the boards of the User
+	 * created on:16th April 2014
+	 */
+	
+	/**
+	 * @param req
+	 * @return
+	 */
 	@GET
 	@Path("/getBoards")
 	public Response userBoards(@Context HttpServletRequest req){
@@ -219,6 +281,19 @@ public class AuthController {
 		return Response.status(200).build();
 
 	}
+
+	/**
+	 * @author Akshay
+	 * Purpose: Used to add Tack to the Board
+	 * created on:16th April 2014
+	 */
+	
+	/**
+	 * @param boardId
+	 * @param imageUrl
+	 * @param req
+	 * @return
+	 */
 	@POST
 	@Path("/addTack")
 	public Response addToBoard(@FormParam("boardId") String boardId,
