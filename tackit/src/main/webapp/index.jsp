@@ -191,8 +191,7 @@
 					<!--  -->
 					<div class="bs-example">
 						<!-- Button HTML (to Trigger Modal) -->
-						<a class="btn btn-lg btn-primary" onclick="modal()">Launch
-							Demo Modal</a>
+						<a class="btn btn-lg btn-primary" onclick="modal()">Add new Pins</a>
 
 						<!-- Modal HTML -->
 						
@@ -256,7 +255,7 @@
 
 
 													<div class="caption">
-														<h3>Thumbnail label</h3>
+														<h3></h3>
 														<p>...</p>
 														<p>
 															<a href="#" class="btn btn-primary" role="button" id="${item}" name=""${item}" onclick="addToBoard(this.id)">Pin It</a>
@@ -349,11 +348,10 @@
 								src="http://blog.gettyimages.com/wp-content/uploads/2013/01/Siberian-Tiger-Running-Through-Snow-Tom-Brakefield-Getty-Images-200353826-001.jpg"
 								alt="...">
 							<div class="caption">
-								<h3>Thumbnail label</h3>
+								<h3></h3>
 								<p>...</p>
 								<p>
-									<a href="#" class="btn btn-primary" role="button">Button</a> <a
-										href="#" class="btn btn-default" role="button">Button</a>
+									<a href="#" class="btn btn-primary" role="button">Tack It</a> 
 								</p>
 							</div>
 						</div>
@@ -364,11 +362,10 @@
 								src="http://www.nasa.gov/sites/default/files/timelapse_sun.jpg"
 								alt="...">
 							<div class="caption">
-								<h3>Thumbnail label</h3>
+								<h3></h3>
 								<p>...</p>
 								<p>
-									<a href="#" class="btn btn-primary" role="button">Button</a> <a
-										href="#" class="btn btn-default" role="button">Button</a>
+									<a href="#" class="btn btn-primary" role="button">Tack It</a> 
 								</p>
 							</div>
 						</div>
@@ -379,11 +376,10 @@
 								src="http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg"
 								alt="...">
 							<div class="caption">
-								<h3>Thumbnail label</h3>
+								<h3></h3>
 								<p>...</p>
 								<p>
-									<a href="#" class="btn btn-primary" role="button">Button</a> <a
-										href="#" class="btn btn-default" role="button">Button</a>
+									<a href="#" class="btn btn-primary" role="button">Tack It</a> 
 								</p>
 							</div>
 						</div>
@@ -394,14 +390,13 @@
 					<div class="col-sm-6 col-md-4">
 						<div class="thumbnail">
 							<img
-								src="http://blog.gettyimages.com/wp-content/uploads/2013/01/Siberian-Tiger-Running-Through-Snow-Tom-Brakefield-Getty-Images-200353826-001.jpg"
+								src="http://takedesigns.com/wp-content/uploads/2013/04/beautiful-wild-animals-2.jpg"
 								alt="...">
 							<div class="caption">
-								<h3>Thumbnail label</h3>
+								<h3></h3>
 								<p>...</p>
 								<p>
-									<a href="#" class="btn btn-primary" role="button">Button</a> <a
-										href="#" class="btn btn-default" role="button">Button</a>
+									<a href="#" class="btn btn-primary" role="button">Tack It</a> 
 								</p>
 							</div>
 						</div>
@@ -409,14 +404,13 @@
 					<div class="col-sm-6 col-md-4">
 						<div class="thumbnail">
 							<img
-								src="http://www.nasa.gov/sites/default/files/timelapse_sun.jpg"
+								src="http://fin6.com/wp-content/uploads/2013/08/124716969184f9a84fc074064670a2e5.jpg"
 								alt="...">
 							<div class="caption">
-								<h3>Thumbnail label</h3>
+								<h3></h3>
 								<p>...</p>
 								<p>
-									<a href="#" class="btn btn-primary" role="button">Button</a> <a
-										href="#" class="btn btn-default" role="button">Button</a>
+									<a href="#" class="btn btn-primary" role="button">Tack It</a> 
 								</p>
 							</div>
 						</div>
@@ -424,57 +418,20 @@
 					<div class="col-sm-6 col-md-4">
 						<div class="thumbnail">
 							<img
-								src="http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg"
+								src="http://terawallpaper.com/wp-content/uploads/2014/04/Wild-Animals-Pictures-Tiger.jpg"
 								alt="...">
 							<div class="caption">
-								<h3>Thumbnail label</h3>
+								<h3></h3>
 								<p>...</p>
 								<p>
-									<a href="#" class="btn btn-primary" role="button">Button</a> <a
-										href="#" class="btn btn-default" role="button">Button</a>
+									<a href="#" class="btn btn-primary" role="button">Tack It</a> 	
 								</p>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="row-fluid">
-					<div class="span4">
-						<h2>Heading</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-							<a class="btn" href="#">View details &raquo;</a>
-						</p>
-					</div>
-					<!--/span-->
-					<div class="span4">
-						<h2>Heading</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-							<a class="btn" href="#">View details &raquo;</a>
-						</p>
-					</div>
-					<!--/span-->
-					<div class="span4">
-						<h2>Heading</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-							<a class="btn" href="#">View details &raquo;</a>
-						</p>
-					</div>
-					<!--/span-->
-				</div>
-				<!--/row-->
-			</div>
+				
 			<!--/span-->
 		</div>
 		<!--/row-->
@@ -524,6 +481,31 @@
 	<p></p>
 	<p></p>
 	<p></p>
+	<p></p><p></p>
+	<p></p>
+	<p></p>
+	<p></p>
+	<p></p>
+	<p></p>
+	<p></p>
+	<p></p>
+	<p></p>
+	<p></p>
+	<p></p>
+	<p></p>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 

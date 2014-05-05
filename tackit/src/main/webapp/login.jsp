@@ -30,11 +30,10 @@
 <script type="text/javascript">
 
 function userLogin(){
-	 alert('inside Login page');
 	   var email = $('#email').val();
 	   var password = $('#password').val();
 	 
-	 alert('Username : '+email);
+	 
 	   
 		$.ajax({
 			url : "tackit/user/login",
@@ -42,7 +41,7 @@ function userLogin(){
 		    data : "email=" + email + "&password=" + password,
 		   
 		    success:function(data, textStatus, jqXHR){
-		    	alert('success');
+		    	
 		    	window.location.href="index.jsp";
 		    },
 		    error: function(jqXHR, textStatus, errorThrown){
@@ -124,7 +123,7 @@ function EmailVerify() {
 						style="background-color: ghostwhite; height:180px; -webkit-box-shadow: 3px 0px 5px #888888; -moz-box-shadow: 3px 0px 5px #888888; box-shadow: 3px 0px 5px #888888; padding: 30px;">
 						<h4>Don't have an account!</h4>
 						<button class="btn btn-large btn-success" type="button" onclick="window.location.href='signup.jsp'">Sign up</button>
-						<h4>for enjoying free and secured 1GB of storage</h4>
+						
 						
 						
 						<!--  <a href="signup.jsp"> Sign Up Here </a> -->

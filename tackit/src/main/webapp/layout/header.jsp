@@ -46,7 +46,7 @@
 			<a class="brand" href="/project-vars/"><span style="color: green; margin: 0px 10px 0px 10px;">Tack<span style="color: yellow;">!</span>T</span></a>
 			<% if(session.getAttribute("username") != null) { %>
 			<ul class="nav">
-				<li><a href="/project-vars/viewProjects.htm" style="color: white;">View Projects</a></li>
+				<li><a href="/project-vars/viewProjects.htm" style="color: white;"></a></li>
 			</ul>
 			<% } %>
 			<% if(session.getAttribute("username") == null) { %>
