@@ -86,17 +86,19 @@ public class UserDao {
 			BasicDBList boardsList = ( BasicDBList ) userdoc.get( "dashboards" );
 			
 			DashBoardDao dbdo = new DashBoardDao();
-			
-			for( Iterator< Object > it = boardsList.iterator(); it.hasNext(); ) {
-				String boardListid     =  (String) it.next();
+			if ( null != boardsList) {	
+				for( Iterator< Object > it = boardsList.iterator(); it.hasNext(); ) {
+					String boardListid     =  (String) it.next();
+					
+					System.out.println("boardListid  " + boardListid);
+					
+					DashBoard d = dbdo.getDashboardById( boardListid );
+					
+					if ( null != d ){
+						usr.addMyBoards(d);
+					}						
+				}
 				
-				System.out.println("boardListid  " + boardListid);
-				
-				DashBoard d = dbdo.getDashboardById( boardListid );
-				
-				if ( null != d ){
-					usr.addMyBoards(d);
-				}						
 			}
 			return usr;
 		}

@@ -40,8 +40,8 @@ public class UserManagement {
 		for ( DashBoard d : u.getMyBoards()){
 			System.out.println("db.toString() " + d.toString() + "number of urls " );
 			
-			if ( null != d.getTacks() ){
-				for ( Tack t1 : d.getTacks() ){
+			if ( null != d.getTackList() ){
+				for ( Tack t1 : d.getTackList() ){
 					
 					System.out.println(t1.getURL()+t1.getId());
 					

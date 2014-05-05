@@ -12,7 +12,7 @@ public class DashBoard {
 	User owner;
 	String description;
 	ArrayList<User> followerlist;
-	ArrayList<Tack> tackList;
+	private ArrayList<Tack> tackList;
 	
 
 	public String getTitle() {
@@ -55,21 +55,15 @@ public class DashBoard {
 		
 	}
 
-	public ArrayList<Tack> getTacks() {
-		return tackList;
-	}
 
-	public void setTacks(ArrayList<Tack> tacks) {
-		this.tackList = tacks;
-	}
 
 
 	public void addTacks( Tack tack) {
 		
-		if( null == tackList ){
-			tackList = new ArrayList<Tack>();
+		if( null == getTackList() ){
+			setTackList(new ArrayList<Tack>());
 		}
-		tackList.add(tack);;
+		getTackList().add(tack);;
 	}
 
 
@@ -117,14 +111,22 @@ public class DashBoard {
 		
 		DashBoard db = dbd.getDashboardById("5365d71f0c5259f3b6445fec");
 		
-		System.out.println("db.toString() " + db.toString() + "number of urls " + db.getTacks().size() );
+		System.out.println("db.toString() " + db.toString() + "number of urls " + db.getTackList().size() );
 		
-		for ( Tack t1 : db.getTacks() ){
+		for ( Tack t1 : db.getTackList() ){
 			
 			System.out.println(t1.getURL() + "       " + t1.getId());
 			
 		}
 		
+	}
+
+	public ArrayList<Tack> getTackList() {
+		return tackList;
+	}
+
+	public void setTackList(ArrayList<Tack> tackList) {
+		this.tackList = tackList;
 	}
 
 

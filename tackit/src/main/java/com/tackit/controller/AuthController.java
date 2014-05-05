@@ -1,10 +1,12 @@
 package com.tackit.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
@@ -18,12 +20,18 @@ import javax.ws.rs.core.Response;
 
 
 
+
+
+
+
 import com.tackit.domain.DashBoard;
+import com.tackit.domain.Tack;
 //import com.sun.jersey.core.header.FormDataContentDisposition;
 //import com.sun.jersey.multipart.FormDataParam;
 import com.tackit.domain.User;
 import com.tackit.facade.DashBoardManager;
 import com.tackit.facade.TackExtractor;
+import com.tackit.facade.TacksManager;
 import com.tackit.facade.UserManagement;
 
 @Path("/user")
@@ -86,9 +94,22 @@ public class AuthController {
 			 HttpSession session= req.getSession(true);
 			 session.setAttribute("username", email);
 				session.setAttribute("sessionId", session.getId());
-				session.setAttribute("user", um.getUserInfo(email, password));
-				output = "Login Successful for "+ email;
-		 return Response.status(200).entity(output).build(); 
+				
+				User user = um.getUserInfo(email, password);
+				
+				
+				UserManagement userManagement = new UserManagement();
+				
+				user = userManagement.getUserBoardsAndTacks(user.getId());
+				
+			
+				req.getSession().setAttribute("user", user);
+
+				
+				
+				return Response.status(200).entity(output).build(); 
+		 
+		 
 			 
 		} else if ( -1 == errorCode){
 			 output = " Login failed wrong password ";
@@ -162,14 +183,51 @@ public class AuthController {
 			dashBoardtoAdd.setDescription(BoardDescription);
 			dashboardmanager.addNewDashBoard(dashBoardtoAdd );
 			
+			
 		}
 		String output="board created";
+		
+		UserManagement userManagement = new UserManagement();
+		
+		user = userManagement.getUserBoardsAndTacks(user.getId());
+		
+		List<String> userBoards = user.getDashBoardNames();
+		req.getSession().setAttribute("user", user);
+		req.getSession().setAttribute("userBoards", userBoards);
+		
 		
 		return Response.status(200).entity(output).build();
 		
 		
 	}
 	
-	
-	
+	@GET
+	@Path("/getBoards")
+	public Response userBoards(@Context HttpServletRequest req){
+		UserManagement userManagement = new UserManagement();
+		User user = (User) req.getSession().getAttribute("user");
+		user = userManagement.getUserBoardsAndTacks(user.getId());
+		
+		List<String> userBoards = user.getDashBoardNames();
+		req.getSession().setAttribute("user", user);
+		req.getSession().setAttribute("userBoards", userBoards);
+		for (String string : userBoards) {
+			System.out.println(string);
+		}
+		return Response.status(200).build();
+		
+	}
+	@POST
+	@Path("/addTack")
+	public Response addToBoard(@FormParam("boardId") String boardId,
+			@FormParam("imageUrl") String imageUrl,
+			@Context HttpServletRequest req){
+		String output="Image Added";
+		TacksManager tacksManager = new TacksManager();
+		Tack tack = new Tack();
+		tack.setURL(imageUrl);
+		System.out.println(imageUrl);
+		tacksManager.addTack(boardId, tack);
+		return Response.status(200).entity(output).build();
+	}
 }

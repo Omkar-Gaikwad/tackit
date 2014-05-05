@@ -14,6 +14,13 @@
 	media="screen" type="text/css">
 <link href="bootstrap/bootstrap-responsive.min.css" rel="stylesheet"
 	media="screen" type="text/css">
+	
+	<link href="css/metro-bootstrap.css" rel="stylesheet">
+<link href="css/metro-bootstrap-responsive.css" rel="stylesheet">
+<link href="css/iconFont.css" rel="stylesheet">
+<link href="css/docs.css" rel="stylesheet">
+<link href="js/prettify/prettify.css" rel="stylesheet">
+
 <script type="text/javascript" src="jsbootstrap/bootstrap.js" /></script>
 <script type="text/javascript" src="jsbootstrap/bootstrap.min.js" /></script>
 <script type="text/javascript" src="jsbootstrap/bootstrap-dropdown.js" /></script>
@@ -22,6 +29,17 @@
 <script type="text/javascript" src="jsbootstrap/bootstrap-carousel.js" /></script>
 <script type="text/javascript" src="jsbootstrap/bootstrap-scrollspy.js" /></script>
 <script type="text/javascript" src="jsbootstrap/bootstrap-modal.js" /></script>
+
+<script type="text/javascript"
+	src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+<!-- Metro UI CSS JavaScript plugins -->
+<script src="js/load-metro.js"></script>
+
+<!-- Local JavaScript -->
+<script src="js/docs.js"></script>
+<script src="js/github.info.js"></script>
+
 
 <!--  -->
 <link rel="stylesheet"
@@ -34,6 +52,7 @@
 	src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
+	var imageUrl = "";
 	function modal() {
 
 		$("#myModal").modal('show');
@@ -42,6 +61,36 @@
 	function modal2() {
 		$("#myModal").hide();
 		$("#myModal2").modal('show');
+	}
+	
+	function addToBoard(id){
+		alert(id);
+		 $("#myModal3").modal('show'); 
+		/* $('#myModal3').modal({show: false}); */
+		
+		imageUrl = id;
+	}
+	
+	function function1(id){
+		alert(imageUrl);
+		alert(id);
+		
+		$.ajax({
+			url : "tackit/user/addTack",
+			type : "POST",
+			data : "boardId=" + id + "&imageUrl="+imageUrl,
+
+			success : function(data, textStatus, jqXHR) {
+				alert('success');
+				/* $("#myModal3").close(); */
+				$('#myModal3').modal({show: false})
+				
+				//window.location.href = "homepage.jsp";
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert('Could not process request.. ' + errorThrown);
+			}
+		});
 	}
 
 </script>
@@ -89,7 +138,7 @@
 
 </head>
 
-<body>
+<body class="metro">
 	<!-- Header file -->
 	<%@include file="layout/header.jsp"%>
 
@@ -174,19 +223,16 @@
 							</div> 
 							
 						</div> 
-						
-
-						
 
 					</div>
 
 					<!-- show selected pictureses  -->
-					<div id="myModal2" class="modal fade"
-						style="width: 1000px; height: 1000px" align="center">
+					<div id="myModal2" class="modal"
+						style="width: 1000px; height: 1000px" align="left">
 
-						<div class="modal-dialog modal-lg" align="center">
-							<div class="modal-content" align="center">
-								<div class="modal-header" align="center">
+						<div class="modal-dialog modal-lg" align="left">
+							<div class="modal-content" align="left">
+								<div class="modal-header" align="left">
 									<button type="button" class="close" data-dismiss="modal"
 										aria-hidden="true">&times;</button>
 									<h4 class="modal-title">Add your pins here</h4>
@@ -213,7 +259,7 @@
 														<h3>Thumbnail label</h3>
 														<p>...</p>
 														<p>
-															<a href="#" class="btn btn-primary" role="button">Pin It</a>
+															<a href="#" class="btn btn-primary" role="button" id="${item}" name=""${item}" onclick="addToBoard(this.id)">Pin It</a>
 														</p>
 													</div>
 												</div>
@@ -245,6 +291,55 @@
 						</div>
 					</div>
 					<!-- Modal 2 ends -->
+			
+			
+			  <div id="myModal3" class="modal">
+						<!--style="width: 1000px; height: 2000px" align="left"  -->
+
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+									<h4 class="modal-title">Add your pins here</h4>
+								</div>
+
+								<div class="modal-body">
+
+									<div class="tile-area tile-area-white">
+
+		<c:forEach var="board" items="${user.myBoards}" varStatus="status">
+			<%-- <a href='#' onclick="function1()"><div class="tile vertical"  data-click="transform">
+				<div class="tile-status bg-dark opacity">
+					<span class="label">${board.title} </span>
+				</div>
+			</div></a> --%>
+			
+			<div>
+			<div class="tile-status bg-dark opacity">	
+				<a class="tile vertical" id="${board.id}"  data-click="transform" href='#' onclick="function1(this.id)">
+					<span class="label">${board.title} </span>	
+				
+				</a>
+				 </div>	
+			</div>
+		</c:forEach>
+	</div>
+
+
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">Close</button>
+									<button type="submit" id="submiturl" class="btn btn-primary"
+										onclick="submiturl()">Attach Tack</button>
+
+								</div>
+							</div>
+						</div>
+					</div>
+			
 
 				</div>
 				<div class="row">
