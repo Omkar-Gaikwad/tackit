@@ -39,6 +39,11 @@
 		$("#myModal").modal('show');
 
 	}
+	function modal2() {
+		$("#myModal").hide();
+		$("#myModal2").modal('show');
+	}
+
 </script>
 <style type="text/css">
 .bs-example {
@@ -68,7 +73,9 @@
 
 			success : function(data, textStatus, jqXHR) {
 				alert('success');
-				window.location.href = "homepage.jsp";
+				modal2()
+				
+				//window.location.href = "homepage.jsp";
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
 				alert('Could not process request.. ' + errorThrown);
@@ -139,18 +146,15 @@
 							Demo Modal</a>
 
 						<!-- Modal HTML -->
-
-						<div id="myModal" class="modal fade"
-							style="width: 660px; height: 260px">
-
-							<div class="modal-dialog">
+						
+						<div id="myModal" class="modal fade" style="width: 650px; height: 250px">
+							  <div  class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
-										<h4 class="modal-title">Add your pins here</h4>
+										<h4 class="modal-title">Enter URL</h4>
 									</div>
-
 									<div class="modal-body">
 
 										<input type="text" id="url" placeholder="http://">
@@ -162,15 +166,86 @@
 											data-dismiss="modal">Close</button>
 										<button type="submit" id="submiturl" class="btn btn-primary"
 											onclick="submiturl()">Submit</button>
-											<button type="button" id="submiturl1" class="btn btn-primary"
-											onclick="submiturl1(this.form)">Submit1</button>
+
 									</div>
+								</div> 
+								
+			
+							</div> 
+							
+						</div> 
+						
+
+						
+
+					</div>
+
+					<!-- show selected pictureses  -->
+					<div id="myModal2" class="modal fade"
+						style="width: 1000px; height: 1000px" align="center">
+
+						<div class="modal-dialog modal-lg" align="center">
+							<div class="modal-content" align="center">
+								<div class="modal-header" align="center">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+									<h4 class="modal-title">Add your pins here</h4>
+								</div>
+
+								<div class="modal-body">
+
+
+
+
+
+									<div class="row">
+										<c:forEach var="item" items="${imageUrls}">
+											<div class="col-md-4">
+												<div class="thumbnail">
+
+
+
+													<img src="${item}" width="200" height="283">
+
+
+
+													<div class="caption">
+														<h3>Thumbnail label</h3>
+														<p>...</p>
+														<p>
+															<a href="#" class="btn btn-primary" role="button">Button</a>
+															<a href="#" class="btn btn-default" role="button">Button</a>
+														</p>
+													</div>
+												</div>
+											</div>
+										</c:forEach>
+									</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">Close</button>
+									<button type="submit" id="submiturl" class="btn btn-primary"
+										onclick="submiturl()">Submit</button>
+
 								</div>
 							</div>
 						</div>
-
 					</div>
-
+					<!-- Modal 2 ends -->
 
 				</div>
 				<div class="row">
@@ -268,7 +343,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="row-fluid">
 					<div class="span4">
 						<h2>Heading</h2>
@@ -328,7 +403,6 @@
 	 -->
 
 
-	<p>      </p>
 	<p></p>
 	<p></p>
 	<p></p>
@@ -347,27 +421,20 @@
 	<p></p>
 	<p></p>
 	<p></p>
-<<<<<<< HEAD
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-=======
 	<p></p>
 	<p></p>
 	<p></p>
->>>>>>> FETCH_HEAD
+	<p></p>
+	<p></p>
+	
+	<p></p>
+	<p></p>
+	<p></p>
+	
 
 
 
 	<!-- Footer file -->
 	<%@include file="layout/footer.jsp"%>
-
-
-
-
-
-
-
 </body>
 </html>
