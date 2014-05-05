@@ -153,7 +153,7 @@
 					<img src="am.png" class="img-rounded">
 					<ul class="nav nav-list">
 
-						<li class="nav-header">Ameya Patil</li>
+						<li class="nav-header">  <%=session.getAttribute("username") %></li>
 
 						<li class="active"><a href="#">Home Board</a></li>
 						<li><a href="#">Profile</a></li>

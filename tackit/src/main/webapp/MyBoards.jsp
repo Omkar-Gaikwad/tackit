@@ -223,15 +223,11 @@
                              padding: 10,
                              width: 500,
                              onShow: function(_dialog){
-                                 var content ='<c:forEach var="board" items="${user.myBoards}" > ' +
-                             	' <c:set var="id2"  value="${board.title}"/>' +
-                            	'<c:choose> <c:when  test="${id == id2}"> ' +
-                                '  <c:forEach var="url1" items="${board.tackList}"> <img src="${url1.URL}"  width="200" height="283"> </c:forEach> ' +
-                               ' </c:when > </c:choose>' +
-                            	
-                            	' </c:forEach>';
-                                                            
-                                 $.Dialog.title("Create Board");
+                                 var content =  ' <c:set var="id1"  value="'+ id +'"/>' + '<c:forEach var="board" items="${user.myBoards}" > ' +
+                             	' <c:set var="id2"  value="${board.title}"/>' + '${id1}'+ ' ' + '${id2}'+
+                             	'<c:if  test="${id1==id2}"> pass****** </c:if>'+
+                             	'</c:forEach>';                            
+                                 $.Dialog.title("Tacks in the Board");
                                  $.Dialog.content(content);
                              }
                          });
@@ -247,8 +243,9 @@
 	<div class="tile-area tile-area-white">
 
 		<c:forEach var="board" items="${user.myBoards}" varStatus="status">
+		 <a href='#' onclick="showBoard(this.id);" id= "${board.title }">
 			<div class="tile double double-vertical live" data-role="live-tile"
-				data-effect="slideUpDown" data-click="transform"
+				data-effect="slideUpDown"
 				data-easing="easeInElastic">
 				<%-- <div class="tile-content image" id= "${board.title }" onclick="showBoard(this.title)"> --%>
 			
@@ -258,12 +255,13 @@
 					</div>
 			 </c:forEach>
 			 <div class="tile-status bg-dark opacity" >
-	 <a href='#'  onclick="showBoard('hi');" >
+	 <!-- <a href='#'  onclick="showBoard('hi');" > -->
 					<span class="label">${board.title} </span>			
-				</a>
+				<!-- </a> -->
 				</div>
 
 			</div>
+			</a>
 		</c:forEach>
 	</div>
 
