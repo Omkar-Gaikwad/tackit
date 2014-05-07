@@ -8,6 +8,13 @@ import com.tackit.domain.User;
 
 public class UserManagement {
 
+
+	public boolean followBoard( String userId, String boardId ){
+		
+		UserDao ud = new UserDao();
+		return ud.followDashBoard(userId, boardId);
+		
+	}
 	
 	public int createUser( User u ){
 		UserDao ud = new UserDao();

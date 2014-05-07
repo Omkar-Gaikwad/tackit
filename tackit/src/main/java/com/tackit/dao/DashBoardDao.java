@@ -97,6 +97,8 @@ public class DashBoardDao{
 		DBCursor cursorDashBoard = dashBoardCollection.find( searchDashdocument );  // get cursor
 
 		DashBoard board = null;
+		
+		UserDao userDao = new UserDao();
 
 		while ( cursorDashBoard.hasNext()) {
 
@@ -108,7 +110,7 @@ public class DashBoardDao{
 
 			board.setId( dashBoardId );						// set dashboard id
 
-			board.setOwner( dashBoardDoc.get("Owner").toString() );
+			board.setOwner( userDao.getUserDetailsNodashById ( dashBoardDoc.get("Owner").toString() ) );
 
 			board.setDescription( dashBoardDoc.get("Description").toString() );
 
