@@ -19,7 +19,13 @@ public class UserManagement {
 
 	public boolean followBoard( String userId, String boardId , boolean toFollow ){
 		
-		return false;
+		UserDao ud = new UserDao();
+		if ( toFollow ){
+			return ud.followDashBoard(userId, boardId);
+		}else{
+		
+			return ud.unFollowDashBoard( userId, boardId);
+		}
 		
 	}
 	
