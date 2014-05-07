@@ -15,6 +15,14 @@ public class TacksManager {
 		
 	}
 	
+	public ArrayList<Tack> getLastNTacks( int n ){
+		
+		TackDao tackDao = new TackDao();
+		
+		return tackDao.getLastNTacksDashandUserInfo(n);
+		
+	}
+	
 	public int addTack(String boardId, Tack tack){
 		
 		TackDao tackDao = new TackDao();
