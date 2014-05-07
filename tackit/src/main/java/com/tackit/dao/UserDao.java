@@ -90,8 +90,6 @@ public class UserDao {
 				for( Iterator< Object > it = boardsList.iterator(); it.hasNext(); ) {
 					String boardListid     =  (String) it.next();
 					
-					System.out.println("boardListid  " + boardListid);
-					
 					DashBoard d = dbdo.getDashboardById( boardListid );
 					
 					if ( null != d ){

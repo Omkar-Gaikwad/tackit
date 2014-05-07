@@ -13,8 +13,84 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.tackit.domain.DashBoard;
 import com.tackit.domain.Tack;
+import com.tackit.domain.User;
 
 public class TackDao {
+	
+	public ArrayList<Tack> getLastNTacksDashandUserInfoExceptUsersTacks( String userID , int n ) {
+
+	
+		ArrayList<String> userDashIdList = new ArrayList<String>();
+		
+		UserDao userDao = new UserDao();
+		
+		User user = userDao.getUserById( userID );
+				
+			
+		//========================================
+		
+		for ( DashBoard d : user.getMyBoards() ){			
+			userDashIdList.add( d.getId());			
+		}
+		
+		
+		BasicDBObject inDashQuery = new BasicDBObject();
+
+		inDashQuery.put("Board", new BasicDBObject("$nin", userDashIdList));
+		
+				
+		//========================================
+		
+		
+		
+		DB db = MongoConnection.getConn();
+
+		DBCollection tackCollection = db.getCollection("Tack"); // get tacks
+																// collection
+		DBObject orderBy = new BasicDBObject("_id",-1);
+		DBCursor cursorTacks = tackCollection.find(  inDashQuery ).sort(orderBy).limit(n);
+
+		ArrayList<Tack> allTacks = new ArrayList<Tack>(); // array list to
+															// return tacks
+
+		while (cursorTacks.hasNext()) {
+
+			try {
+
+				DBObject tackDoc = cursorTacks.next();
+
+				Tack t = new Tack();
+
+				t.setId(tackDoc.get("_id").toString());
+				t.setURL(tackDoc.get("URL").toString());
+
+				BasicDBList boardsList = (BasicDBList) tackDoc.get("Board");
+
+				if (null != boardsList) {
+
+					DashBoardDao dashBoardDao = new DashBoardDao();
+
+					for (Iterator<Object> it = boardsList.iterator(); it
+							.hasNext();) {
+						String boardListId = (String) it.next();
+
+						DashBoard dashBoard = dashBoardDao
+								.getDashBoardNameAndOwner(boardListId);
+
+						if (null != dashBoard) {
+							t.addDashboardlist(dashBoard);
+						}
+					}
+				}
+
+				allTacks.add(t);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return allTacks;
+	}
+	
 
 	
 	public ArrayList<Tack> getLastNTacksDashandUserInfo( int n ) {
@@ -51,8 +127,6 @@ public class TackDao {
 					for (Iterator<Object> it = boardsList.iterator(); it
 							.hasNext();) {
 						String boardListId = (String) it.next();
-
-						System.out.println("boardListId  " + boardListId);
 
 						DashBoard dashBoard = dashBoardDao
 								.getDashBoardNameAndOwner(boardListId);
@@ -143,8 +217,6 @@ public class TackDao {
 		while (cursorDoc.hasNext()) {
 
 			DBObject doc = cursorDoc.next();
-
-			System.out.println(" tack dao get tack by id " + doc);
 
 			t = new Tack();
 

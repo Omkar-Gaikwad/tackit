@@ -102,8 +102,6 @@ public class DashBoardDao{
 
 			DBObject dashBoardDoc = cursorDashBoard.next();
 
-			System.out.println(  " dashBoardDoc "  + dashBoardDoc );
-
 			board = new DashBoard();
 
 			board.setTitle( dashBoardDoc.get("Title").toString()  );	// set title
@@ -122,8 +120,6 @@ public class DashBoardDao{
 
 				for( Iterator< Object > it = tacksList.iterator(); it.hasNext(); ) {
 					String tackListid     =  (String) it.next();
-
-					System.out.println("tackListObj  " + tackListid);
 
 					Tack t = tdo.getTackbyId( tackListid );
 
@@ -181,7 +177,7 @@ public class DashBoardDao{
 			BasicDBObject newDash = new BasicDBObject();			// crate push object
 			newDash.append("dashboards", dashId );
 
-			BasicDBObject originalDash = new BasicDBObject();		// puch array	
+			BasicDBObject originalDash = new BasicDBObject();		// push array	
 			originalDash.put("$push", newDash);
 
 			System.out.println("originalDash" + originalDash);
