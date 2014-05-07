@@ -342,16 +342,12 @@
 						<c:forEach var="image" items="${userTacks}" varStatus="status">
 					<div class="col-sm-6 col-md-4">
 						<div class="thumbnail">
-							
-						
-							<img
-								src="${image.URL}"
-								alt="...">
+							<img src="${image.URL}"  alt="...">
 							<div class="caption">
 								<h3></h3>
 								<p>...</p>
 								<p>
-									<a href="#" class="btn btn-primary" role="button">Tack It</a> 
+									<a href="#" class="btn btn-primary" role="button" onclick="addToBoard(this.id)">Tack It</a> 
 								</p>
 							</div>
 						
@@ -367,119 +363,11 @@
 				
 				
 				
-				<div class="row">
-					<div class="col-sm-6 col-md-4">
-						<div class="thumbnail">
-							<img
-								src="http://blog.gettyimages.com/wp-content/uploads/2013/01/Siberian-Tiger-Running-Through-Snow-Tom-Brakefield-Getty-Images-200353826-001.jpg"
-								alt="...">
-							<div class="caption">
-								<h3></h3>
-								<p>...</p>
-								<p>
-									<a href="#" class="btn btn-primary" role="button">Tack It</a> 
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-6 col-md-4">
-						<div class="thumbnail">
-							<img
-								src="http://www.nasa.gov/sites/default/files/timelapse_sun.jpg"
-								alt="...">
-							<div class="caption">
-								<h3></h3>
-								<p>...</p>
-								<p>
-									<a href="#" class="btn btn-primary" role="button">Tack It</a> 
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-6 col-md-4">
-						<div class="thumbnail">
-							<img
-								src="http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg"
-								alt="...">
-							<div class="caption">
-								<h3></h3>
-								<p>...</p>
-								<p>
-									<a href="#" class="btn btn-primary" role="button">Tack It</a> 
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-sm-6 col-md-4">
-						<div class="thumbnail">
-							<img
-								src="http://takedesigns.com/wp-content/uploads/2013/04/beautiful-wild-animals-2.jpg"
-								alt="...">
-							<div class="caption">
-								<h3></h3>
-								<p>...</p>
-								<p>
-									<a href="#" class="btn btn-primary" role="button">Tack It</a> 
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-6 col-md-4">
-						<div class="thumbnail">
-							<img
-								src="http://fin6.com/wp-content/uploads/2013/08/124716969184f9a84fc074064670a2e5.jpg"
-								alt="...">
-							<div class="caption">
-								<h3></h3>
-								<p>...</p>
-								<p>
-									<a href="#" class="btn btn-primary" role="button">Tack It</a> 
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-6 col-md-4">
-						<div class="thumbnail">
-							<img
-								src="http://terawallpaper.com/wp-content/uploads/2014/04/Wild-Animals-Pictures-Tiger.jpg"
-								alt="...">
-							<div class="caption">
-								<h3></h3>
-								<p>...</p>
-								<p>
-									<a href="#" class="btn btn-primary" role="button">Tack It</a> 	
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-
 				
-			<!--/span-->
+				
 		</div>
-		<!--/row-->
-
 		<hr>
-
-
-
 	</div>
-
-	<!--/.fluid-container-->
-
-
-	<!-- 
-			<label>Add your pins here...!!</label> <input type="text" id="url"
-				placeholder="http://">
-			<button type="submit" id="submiturl" class="btn btn-primary"
-				onclick="submiturl()">Submit</button>
-	
-	 -->
-
-
 	<p></p>
 	<p></p>
 	<p></p>
