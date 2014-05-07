@@ -47,7 +47,9 @@ public class UserDao {
 		
 		userCollection.update(searchUser, originalDash );
 		
-		returnValue = true;
+		DashBoardDao dashBoardDao = new DashBoardDao();
+		
+		returnValue = dashBoardDao.followDashBoard(uId, boardId);
 		
 		}catch ( Exception e ){
 			e.printStackTrace();

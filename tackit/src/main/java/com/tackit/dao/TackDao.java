@@ -29,8 +29,11 @@ public class TackDao {
 			
 		//========================================
 		
-		for ( DashBoard d : user.getMyBoards() ){			
-			userDashIdList.add( d.getId());			
+		if ( null != user ){
+		
+			for ( DashBoard d : user.getMyBoards() ){			
+				userDashIdList.add( d.getId());			
+			}
 		}
 		
 		

@@ -62,12 +62,39 @@ public class DashBoardDao{
 			board.setId( dashBoardId );	// set id
 
 			board.setOwner( dashBoardDoc.get("Owner").toString() ); // set owner id 
-
-			board.setOwner( dashBoardDoc.get("Owner").toString() ); // set Description
+			
+			board.setDescription( dashBoardDoc.get("Description").toString() );
 
 			UserDao userDao = new UserDao();
 
 			board.setOwner(  userDao.getUserDetailsNodashById( board.getOwner().getId() ));	// set owner user object
+			
+			//=====================================================
+			
+/*			BasicDBList usersList = ( BasicDBList ) dashBoardDoc.get( "followingUsers" );
+
+			if ( null != usersList ){
+
+				UserDao udo = new UserDao();
+				
+				asdasdasd
+
+				for( Iterator< Object > it = usersList.iterator(); it.hasNext(); ) {
+					String tackListid     =  (String) it.next();
+
+					Tack t = tdo.getTackbyId( tackListid );
+
+					if ( null != t ){
+						board.addTacks(t);
+					}				
+				}		
+			}
+			*/
+			
+			
+			
+			//======================================================
+			
 
 			break;		
 		}			
@@ -273,6 +300,45 @@ public class DashBoardDao{
 		return returnVal;
 		
 	}	
+	
+	public boolean followDashBoard( String uId , String boardId){
+		
+		boolean returnValue = false;
+		
+		try {
+		
+		DB db = MongoConnection.getConn();
+		
+		DBCollection boardCollection = db.getCollection("DashBoard");
+		
+
+		ObjectId objid = new ObjectId(boardId); // search board
+		
+		BasicDBObject searchBoard = new BasicDBObject(); // search board
+															// query
+		searchBoard.put("_id", objid);
+		
+		
+		BasicDBObject newUser = new BasicDBObject();			
+		newUser.append("followingUsers", uId );
+		
+		BasicDBObject originalDash = new BasicDBObject();			
+		originalDash.put("$addToSet", newUser);
+		
+		boardCollection.update( searchBoard, originalDash );
+		
+		returnValue = true;
+		
+		}catch ( Exception e ){
+			e.printStackTrace();
+		}
+
+		
+		return returnValue;
+
+		
+		
+	}
 	
 
 
