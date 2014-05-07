@@ -335,11 +335,14 @@ public class AuthController {
     public Response deleteBoard(@FormParam("boardId") String boardId,
             @Context HttpServletRequest req){     
 		
+		System.out.println("Board Id is:"+boardId);
 		UserManagement um=new UserManagement();
 		
         HttpSession session= req.getSession(true);
         User user=(User) session.getAttribute("user");
         user.deleteDashBoard(boardId);
+        System.out.println("User Id is:"+user.getId());
+        um.deleteDashBoardById(user.getId(), boardId);
         req.getSession().setAttribute("user", user); 
         return Response.status(200).entity("board deleted").build();
     }
