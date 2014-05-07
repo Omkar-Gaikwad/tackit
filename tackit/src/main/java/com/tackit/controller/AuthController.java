@@ -137,7 +137,6 @@ public class AuthController {
 
 
 			req.getSession().setAttribute("user", user);
-
 			List<Tack> userTacks = new TacksManager().getAllTacks();
 			req.getSession().setAttribute("userTacks", userTacks);
 			return Response.status(200).entity(output).build(); 
@@ -315,17 +314,30 @@ public class AuthController {
             @Context HttpServletRequest req){
         String output="SUCCESS";
          String str = "";
+         List<String> imageList = new ArrayList<String>();
         List<DashBoard> boardList = ((User) req.getSession().getAttribute("user")).getMyBoards();
         for (DashBoard dashBoard : boardList) {
             if(dashBoard.getId().equals(boardId)){
                 for (Tack url : dashBoard.getTackList()) {
+                	imageList.add("<img src=\""+ url.getURL() +"\"  width=\"200\" height=\"283\">");
                     str = str + "<img src=\""+ url.getURL() +"\"  width=\"200\" height=\"283\">";
                 }
             }
         }
         System.out.println("Final str is "+str);
         req.setAttribute("myAtt", str);
-        req.getSession().setAttribute("images", str); 
+        req.getSession().setAttribute("images", str);
+        req.getSession().setAttribute("imageList", imageList); 
+        return Response.status(200).entity(str).build();
+    }
+	
+	@POST
+    @Path("/followBoard")
+    public Response followBoard(@FormParam("boardId") String boardId,@FormParam("boardTitle") String boardTitle,@FormParam("owner") String owner,
+            @Context HttpServletRequest req){
+       
+         String str = "";
+
         return Response.status(200).entity(str).build();
     }
 	

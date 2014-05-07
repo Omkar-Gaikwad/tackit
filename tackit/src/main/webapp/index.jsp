@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
 <meta charset="utf-8">
 <title>Url</title>
@@ -130,6 +131,26 @@
 			}
 		});
 	}
+
+	var foo = "";
+	function showUserBoard(id, title, owner) {
+		alert(title + " " + owner);
+        $.ajax({
+            url : "tackit/user/followBoard",
+            type : "POST",
+            data : "boardId=" + id + "&boardTitle="+title + "&owner="+owner,
+            
+            success : function(data, textStatus, jqXHR) {
+            	foo = '${images}';
+            	alert('${images}');
+            	window.location.href = "userBoard.jsp";
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+                alert('Could not process request.. ' + errorThrown);
+            }
+        });
+     
+ 	}
 </script>
 
 
@@ -339,15 +360,19 @@
 				
 				<div class="row">
 				
-						<c:forEach var="image" items="${userTacks}" varStatus="status">
+					<c:forEach var="image" items="${userTacks}">
 					<div class="col-sm-6 col-md-4">
 						<div class="thumbnail">
 							<img src="${image.URL}"  alt="...">
 							<div class="caption">
 								<h3></h3>
-								<p>...</p>
 								<p>
-									<a href="#" class="btn btn-primary" role="button"  id="${image.URL}"  onclick="addToBoard(this.id)">Tack It</a> 
+									<a href="#" class="btn btn-primary" role="button"  id="${image.URL}"  onclick="addToBoard(this.id)">Tack It</a>
+									<c:forEach var="boardId" items="${image.dashboardlist}" varStatus="status">
+									 <c:if test="${status.count le 1}"> 
+									<a href="#" class="btn btn-primary" role="button" id="${boardId.id}" onclick="showUserBoard(this.id,'${boardId.title}','${boardId.owner}')">Board</a>
+									 </c:if>  
+									</c:forEach>
 								</p>
 							</div>
 						
