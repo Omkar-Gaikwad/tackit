@@ -167,7 +167,7 @@ public class UserDao {
 
 		// search user in  database
 
-		System.out.println(" searching user in db ");
+		System.out.println(" 	 in db ");
 
 		BasicDBObject document = new BasicDBObject();
 
@@ -235,9 +235,7 @@ public class UserDao {
 		DBCollection collection = db.getCollection("User");
 
 		// search user in  database
-
-		System.out.println(" searching user in db " + id );
-		
+	
 		
 		ObjectId userobjid = new ObjectId( id );
 		

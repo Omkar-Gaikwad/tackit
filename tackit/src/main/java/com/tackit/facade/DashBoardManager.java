@@ -21,4 +21,12 @@ public class DashBoardManager {
 		
 		
 	}
+	
+	public DashBoard getDashBoard( String dashBoardId ){
+		
+		DashBoardDao dashBoardDao = new DashBoardDao();
+		
+		return dashBoardDao.getDashboardById(dashBoardId);
+		
+	}
 }
