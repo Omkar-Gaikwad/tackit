@@ -213,4 +213,49 @@ public class UserDao {
 		}
 		return u;
 	}
+	
+	
+public boolean deleteDashBoardById( String userId , String boardId ){
+
+		boolean returnVal = false ;
+		
+		try { 
+			
+			DB db = MongoConnection.getConn();
+			
+			DBCollection userCollection = db.getCollection("User");
+			
+			ObjectId objid = new ObjectId(userId); // search user
+	
+			BasicDBObject searchUser = new BasicDBObject(); // search user
+																// query
+			searchUser.put("_id", objid);
+			
+			BasicDBObject rmBoard = new BasicDBObject(); // remove tack from board
+			rmBoard.append("dashboards", boardId );
+			
+			BasicDBObject newDashBoardList = new BasicDBObject();
+			newDashBoardList.put("$pull", rmBoard ); // remove tack to array
+			
+			System.out.println("newDashBoardList  " + newDashBoardList);
+			
+			userCollection.update( searchUser , newDashBoardList); // update board
+			
+			// ===========================================
+			
+			DashBoardDao dashDao = new DashBoardDao();
+			
+			returnVal = dashDao.removeDashBoardById(boardId);
+		
+		} catch ( Exception e ){
+			
+			e.printStackTrace();
+			
+		}
+		
+		return returnVal;
+		
+	}
+	
+	
 }

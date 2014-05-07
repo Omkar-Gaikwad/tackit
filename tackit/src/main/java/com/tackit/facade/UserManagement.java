@@ -60,4 +60,12 @@ public class UserManagement {
 		
 	}
 	
+	public  boolean deleteDashBoardById( String userId, String boardId  ) {
+		
+		UserDao userDao = new UserDao();
+		
+		return userDao.deleteDashBoardById(userId, boardId);
+		
+	}
+	
 }
