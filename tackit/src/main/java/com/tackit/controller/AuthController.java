@@ -82,9 +82,7 @@ public class AuthController {
 
 		if ( 0 == errorCode )
 			System.out.println("User added");
-		else
-			System.out.println(" hagala hagala ");	
-
+		 
 
 		return Response.status(200).entity(output).build();
 
@@ -307,4 +305,24 @@ public class AuthController {
 		tacksManager.addTack(boardId, tack);
 		return Response.status(200).entity(output).build();
 	}
+	
+	@POST
+    @Path("/showBoard")
+    public Response showBoard(@FormParam("boardId") String boardId,
+            @Context HttpServletRequest req){
+        String output="SUCCESS";
+         String str = "";
+        List<DashBoard> boardList = ((User) req.getSession().getAttribute("user")).getMyBoards();
+        for (DashBoard dashBoard : boardList) {
+            if(dashBoard.getId().equals(boardId)){
+                for (Tack url : dashBoard.getTackList()) {
+                    str = str + "<img src=\""+ url.getURL() +"\"  width=\"200\" height=\"283\">";
+                }
+            }
+        }
+        System.out.println("Final str is "+str);
+        req.setAttribute("myAtt", str);
+        req.getSession().setAttribute("images", str); 
+        return Response.status(200).entity(str).build();
+    }
 }

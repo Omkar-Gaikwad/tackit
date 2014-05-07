@@ -208,11 +208,36 @@
                 		
                     }
                     
-                    
+                    var foo = "";
                     function showBoard(id) {
-						alert(id);
-                    	
-                    	 $.Dialog({
+                        alert(id);
+                        $.ajax({
+                            url : "tackit/user/showBoard",
+                            type : "POST",
+                            data : "boardId=" + id,
+                            
+                            success : function(data, textStatus, jqXHR) {
+                                foo = '${images}';
+                                alert(foo.value);
+                            },
+                            error : function(jqXHR, textStatus, errorThrown) {
+                                alert('Could not process request.. ' + errorThrown);
+                            }
+                        });
+                    
+                        /* var foo = '${images}';
+                        alert(foo.value); */
+                        
+                        <%
+                        Object obj = session.getAttribute("images");
+                        String str = (String) obj;
+                        System.out.println("in scr:" + str);
+                        
+                    %>
+                        /* alert(str); */
+                        
+                        
+                         $.Dialog({
                              overlay: true,
                              shadow: true,
                              flat: true,
@@ -223,17 +248,11 @@
                              padding: 10,
                              width: 500,
                              onShow: function(_dialog){
-                                 var content =  ' <c:set var="id1"  value="'+ id +'"/>' + '<c:forEach var="board" items="${user.myBoards}" > ' +
-                             	' <c:set var="id2"  value="${board.title}"/>' + '${id1}'+ ' ' + '${id2}'+
-                             	'<c:if  test="${id1==id2}"> pass****** </c:if>'+
-                             	'</c:forEach>';                            
+                                 var content =  '${images}';   
                                  $.Dialog.title("Tacks in the Board");
                                  $.Dialog.content(content);
                              }
                          });
-                    	
-                    	
-                    	
 					}
                     
 </script>
