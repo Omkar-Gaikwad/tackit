@@ -307,11 +307,6 @@
 									<div class="tile-area tile-area-white">
 
 		<c:forEach var="board" items="${user.myBoards}" varStatus="status">
-			<%-- <a href='#' onclick="function1()"><div class="tile vertical"  data-click="transform">
-				<div class="tile-status bg-dark opacity">
-					<span class="label">${board.title} </span>
-				</div>
-			</div></a> --%>
 			
 			<div>
 			<div class="tile-status bg-dark opacity">	
@@ -340,6 +335,38 @@
 			
 
 				</div>
+				
+				
+				<div class="row">
+				
+						<c:forEach var="image" items="${userTacks}" varStatus="status">
+					<div class="col-sm-6 col-md-4">
+						<div class="thumbnail">
+							
+						
+							<img
+								src="${image.URL}"
+								alt="...">
+							<div class="caption">
+								<h3></h3>
+								<p>...</p>
+								<p>
+									<a href="#" class="btn btn-primary" role="button">Tack It</a> 
+								</p>
+							</div>
+						
+						</div>
+					</div>	
+						</c:forEach>
+					
+				
+				</div>
+				
+				
+				
+				
+				
+				
 				<div class="row">
 					<div class="col-sm-6 col-md-4">
 						<div class="thumbnail">

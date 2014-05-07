@@ -10,7 +10,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
+
 
 
 
@@ -135,8 +137,8 @@ public class AuthController {
 
 			req.getSession().setAttribute("user", user);
 
-
-
+			List<Tack> userTacks = new TacksManager().getAllTacks();
+			req.getSession().setAttribute("userTacks", userTacks);
 			return Response.status(200).entity(output).build(); 
 
 

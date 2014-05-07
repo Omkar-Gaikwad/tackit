@@ -29,6 +29,11 @@ public class TackDao {
 		
 		while (cursorTacks.hasNext()) {
 			
+			
+			
+			try {
+				
+			
 			DBObject tackDoc = cursorTacks.next();
 		
 			Tack t = new Tack();
@@ -54,7 +59,11 @@ public class TackDao {
 					}				
 				}
 			}
+			
 			allTacks.add(t);			
+			} catch ( Exception e ){
+				e.printStackTrace();
+			}
 		}
 		return allTacks;		
 	}
