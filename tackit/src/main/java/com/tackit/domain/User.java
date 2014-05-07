@@ -94,6 +94,16 @@ public class User {
 		return dashBoardNames;
 		
 	}
+	
+public boolean deleteDashBoard(String id){
 		
+	DashBoard d=new DashBoard();
+	d.setId(id);
+	if(this.myBoards.remove(d))
+	return true;	
+	else
+		return false;
+	}
+			
 }
 
