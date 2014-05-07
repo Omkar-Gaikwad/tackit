@@ -347,7 +347,7 @@
 								<h3></h3>
 								<p>...</p>
 								<p>
-									<a href="#" class="btn btn-primary" role="button" onclick="addToBoard(this.id)">Tack It</a> 
+									<a href="#" class="btn btn-primary" role="button"  id="${image.URL}"  onclick="addToBoard(this.id)">Tack It</a> 
 								</p>
 							</div>
 						
