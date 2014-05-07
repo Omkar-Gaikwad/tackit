@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -339,4 +340,26 @@ public class AuthController {
 
         return Response.status(200).entity(str).build();
     }
+	
+	
+	@DELETE
+    @Path("/deleteBoard")
+    public Response deleteBoard(@FormParam("boardId") String boardId,
+            @Context HttpServletRequest req){     
+		
+		System.out.println("Board Id is:"+boardId);
+		UserManagement um=new UserManagement();
+		
+        HttpSession session= req.getSession(true);
+        User user=(User) session.getAttribute("user");
+        user.deleteDashBoard(boardId);
+        System.out.println("User Id is:"+user.getId());
+        um.deleteDashBoardById(user.getId(), boardId);
+        req.getSession().setAttribute("user", user); 
+        return Response.status(200).entity("board deleted").build();
+    }
+
+	
+
+	
 }

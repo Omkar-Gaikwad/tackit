@@ -4,14 +4,16 @@ import java.util.ArrayList;
 
 public class User {
 
-	private String id;	
+	private String id;
 	private String email;
 	private String password;
 	private String firstName;
 	private String lastName;
-	
+
 	ArrayList<DashBoard> myBoards;
-	
+
+	ArrayList<DashBoard> followingBoards;
+
 	public User(String id, String email, String password, String firstName,
 			String lastName) {
 		super();
@@ -21,7 +23,7 @@ public class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
-	
+
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
@@ -73,27 +75,64 @@ public class User {
 	public void setMyBoards(ArrayList<DashBoard> myBoards) {
 		this.myBoards = myBoards;
 	}
-	
-	public void addMyBoards( DashBoard board ){
-		if ( null == myBoards ){
+
+	public void addMyBoards(DashBoard board) {
+		if (null == myBoards) {
 			myBoards = new ArrayList<DashBoard>();
 		}
 		myBoards.add(board);
 	}
-	
-	public ArrayList<String> getDashBoardNames(){
-		
+
+	public ArrayList<String> getDashBoardNames() {
+
 		ArrayList<String> dashBoardNames = new ArrayList<String>();
-		
-		if ( null != this.myBoards ){
-		
-			for ( DashBoard d : this.myBoards){
-				dashBoardNames.add( d.getTitle());
+
+		if (null != this.myBoards) {
+
+			for (DashBoard d : this.myBoards) {
+				dashBoardNames.add(d.getTitle());
 			}
 		}
 		return dashBoardNames;
-		
-	}
-		
-}
 
+	}
+
+	public boolean deleteDashBoard(String id) {
+
+		DashBoard d = new DashBoard();
+		d.setId(id);
+		if (this.myBoards.remove(d))
+			return true;
+		else
+			return false;
+	}
+
+	public ArrayList<DashBoard> getFollowingBoards() {
+		return followingBoards;
+	}
+
+	public void setFollowingBoards(ArrayList<DashBoard> followingBoards) {
+		this.followingBoards = followingBoards;
+	}
+
+	public void addFollowingBoards(DashBoard board) {
+		if (null == followingBoards) {
+			followingBoards = new ArrayList<DashBoard>();
+		}
+		followingBoards.add(board);
+	}
+	
+	public ArrayList<String> getFollowingDashBoardNames() {
+
+		ArrayList<String> followDashBoardNames = new ArrayList<String>();
+
+		if (null != this.followingBoards) {
+
+			for (DashBoard d : this.followingBoards) {
+				followDashBoardNames.add(d.getTitle());
+			}
+		}
+		return followDashBoardNames;
+	}
+
+}

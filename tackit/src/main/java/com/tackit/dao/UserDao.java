@@ -21,6 +21,43 @@ import com.tackit.domain.User;
 public class UserDao {
 	
 	
+	public boolean followDashBoard( String uId , String boardId){
+		
+		boolean returnValue = false;
+		
+		try {
+		
+		DB db = MongoConnection.getConn();
+		
+		DBCollection userCollection = db.getCollection("User");
+		
+
+		ObjectId usrid = new ObjectId( uId );
+		
+		BasicDBObject searchUser = new BasicDBObject();			
+		
+		searchUser.put("_id", usrid );
+		
+		
+		BasicDBObject newDash = new BasicDBObject();			
+		newDash.append("followingdashboards", boardId );
+		
+		BasicDBObject originalDash = new BasicDBObject();			
+		originalDash.put("$addToSet", newDash);
+		
+		userCollection.update(searchUser, originalDash );
+		
+		returnValue = true;
+		
+		}catch ( Exception e ){
+			e.printStackTrace();
+		}
+
+		
+		return returnValue;
+	
+	}
+	
 	public int addToMyDashBoard ( String uId , String boardId){
 		
 	
@@ -42,8 +79,6 @@ public class UserDao {
 		
 		BasicDBObject originalDash = new BasicDBObject();			
 		originalDash.put("$addToSet", newDash);
-	
-		System.out.println("originalDash" + originalDash);
 		
 		userCollection.update(searchUser, originalDash );
 		
@@ -83,14 +118,13 @@ public class UserDao {
 			usr.setLastName( userdoc.get("LastName").toString() );
 			usr.setEmail( userdoc.get("Email").toString() );
 			
+			DashBoardDao dbdo = new DashBoardDao();
+			
 			BasicDBList boardsList = ( BasicDBList ) userdoc.get( "dashboards" );
 			
-			DashBoardDao dbdo = new DashBoardDao();
 			if ( null != boardsList) {	
 				for( Iterator< Object > it = boardsList.iterator(); it.hasNext(); ) {
 					String boardListid     =  (String) it.next();
-					
-					System.out.println("boardListid  " + boardListid);
 					
 					DashBoard d = dbdo.getDashboardById( boardListid );
 					
@@ -98,12 +132,28 @@ public class UserDao {
 						usr.addMyBoards(d);
 					}						
 				}
+			}
+
+			BasicDBList followDashBoardsList = ( BasicDBList ) userdoc.get( "followingdashboards" );
+			
+			if ( null != followDashBoardsList) {	
+				for( Iterator< Object > it = followDashBoardsList.iterator(); it.hasNext(); ) {
+					String followBoardListid     =  (String) it.next();
+					
+					DashBoard d = dbdo.getDashboardById( followBoardListid );
+					
+					if ( null != d ){
+						usr.addMyBoards(d);
+					}						
+				}
 				
 			}
+			
 			return usr;
 		}
 		return null;
 	}
+	
 	
 	
 
@@ -144,6 +194,8 @@ public class UserDao {
 		return u;
 
 	}
+	
+	
 
 	public int addUser(User u) {
 
@@ -213,4 +265,49 @@ public class UserDao {
 		}
 		return u;
 	}
+	
+	
+public boolean deleteDashBoardById( String userId , String boardId ){
+
+		boolean returnVal = false ;
+		
+		try { 
+			
+			DB db = MongoConnection.getConn();
+			
+			DBCollection userCollection = db.getCollection("User");
+			
+			ObjectId objid = new ObjectId(userId); // search user
+	
+			BasicDBObject searchUser = new BasicDBObject(); // search user
+																// query
+			searchUser.put("_id", objid);
+			
+			BasicDBObject rmBoard = new BasicDBObject(); // remove tack from board
+			rmBoard.append("dashboards", boardId );
+			
+			BasicDBObject newDashBoardList = new BasicDBObject();
+			newDashBoardList.put("$pull", rmBoard ); // remove tack to array
+			
+			System.out.println("newDashBoardList  " + newDashBoardList);
+			
+			userCollection.update( searchUser , newDashBoardList); // update board
+			
+			// ===========================================
+			
+			DashBoardDao dashDao = new DashBoardDao();
+			
+			returnVal = dashDao.removeDashBoardById(boardId);
+		
+		} catch ( Exception e ){
+			
+			e.printStackTrace();
+			
+		}
+		
+		return returnVal;
+		
+	}
+	
+	
 }

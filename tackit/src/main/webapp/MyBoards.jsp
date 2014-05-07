@@ -37,8 +37,6 @@
 <script src="js/docs.js"></script>
 <script src="js/github.info.js"></script>
 
-
-
 <!-- jQuery Form Validation code -->
 
 
@@ -67,19 +65,27 @@
 					style="color: green; margin: 0px 10px 0px 10px;">Tack<span
 						style="color: yellow;">!</span>T
 				</span></a>
-				<% if(session.getAttribute("username") != null) { %>
+				<%
+					if (session.getAttribute("username") != null) {
+				%>
 				<ul class="nav">
 					<li><a href="/project-vars/viewProjects.htm"
 						style="color: white;"></a></li>
 				</ul>
-				<% } %>
-				<% if(session.getAttribute("username") == null) { %>
+				<%
+					}
+				%>
+				<%
+					if (session.getAttribute("username") == null) {
+				%>
 				<ul id="loginMenu" class="nav" style="float: right;">
 					<li><a href="/project-vars/login.htm" style="color: white;">Login</a></li>
 					<li><a href="/project-vars/signup.htm" style="color: white;">Sign
 							Up</a></li>
 				</ul>
-				<% } else { %>
+				<%
+					} else {
+				%>
 				<ul id="loggedInMenu" class="nav"
 					style="float: right; padding-right: 35px;">
 					<li class="dropdown" id="loggedInDown">
@@ -100,7 +106,9 @@
 						</ul>
 					</li>
 				</ul>
-				<% } %>
+				<%
+					}
+				%>
 			</div>
 		</div>
 	</div>
@@ -114,9 +122,7 @@
 				1 Like</a>
 
 
-
-
-			<div class="element place-right" >
+			<div class="element place-right">
 				<a href="/" class="element" class="element place-right"><span
 					class="icon-grid-view"></span> 0 Followers</a>
 			</div>
@@ -134,156 +140,181 @@
 			</div>
 			<span class="element-divider"></span>
 			<script>
-                    $("#createboard").on('click', function(){
-                        $.Dialog({
-                            overlay: true,
-                            shadow: true,
-                            flat: true,
-                            draggable: true,
-                            icon: '<span class="icon-grid-view"></span>',
-                            title: 'Flat window',
-                            content: '',
-                            padding: 10,
-                            width: 500,
-                            onShow: function(_dialog){
-                                var content = 
-                                        '<label>Board Name</label>' +
-                                        '<div class="input-control text required"><input type="text" name="boardname" id="BoardName"></div>' +
-                                        '<label>Description</label>'+    
-                                        '<div class="input-control textarea">'+
-                                        '<textarea id="BoardDescription">amol</textarea>'+
-                                        '</div>'+
-                                        '<div>' +
-                                        '<button class="button" id="createboardbutton" onclick="func()" >Create</button>&nbsp;'+
-                                        '</div>';
-                                                                        
-                                $.Dialog.title("Create Board");
-                                $.Dialog.content(content);
-                            }
-                        });
-                    });
-                    
-                    
-                    function func()            
-                    {
-                    	$.Dialog.close();
-                    	
+				$("#createboard")
+						.on(
+								'click',
+								function() {
+									$
+											.Dialog({
+												overlay : true,
+												shadow : true,
+												flat : true,
+												draggable : true,
+												icon : '<span class="icon-grid-view"></span>',
+												title : 'Flat window',
+												content : '',
+												padding : 10,
+												width : 500,
+												onShow : function(_dialog) {
+													var content = '<label>Board Name</label>'
+															+ '<div class="input-control text required"><input type="text" name="boardname" id="BoardName"></div>'
+															+ '<label>Description</label>'
+															+ '<div class="input-control textarea">'
+															+ '<textarea id="BoardDescription">amol</textarea>'
+															+ '</div>'
+															+ '<div>'
+															+ '<button class="button" id="createboardbutton" onclick="func()" >Create</button>&nbsp;'
+															+ '</div>';
 
-                		var BoardName = $('#BoardName').val();
-                		var BoardDescription = $('#BoardDescription').val();
-                		
+													$.Dialog
+															.title("Create Board");
+													$.Dialog.content(content);
+												}
+											});
+								});
 
-                		$.ajax({
-                			url : "tackit/user/pinboard",
-                			type : "POST",
-                			data : "BoardName=" + BoardName + "&BoardDescription="+BoardDescription,
+				function func() {
+					$.Dialog.close();
 
-                			success : function(data, textStatus, jqXHR) {
-                				alert('success');
-                								
-                				//window.location.href = "MyBoar.jsp";
-                			},
-                			error : function(jqXHR, textStatus, errorThrown) {
-                				alert('Could not process request.. ' + errorThrown);
-                			}
-                		});
-                		
-                		$.ajax({
-                			url : "tackit/user/getBoards",
-                			type : "GET",
-                			datatype : 'text',
+					var BoardName = $('#BoardName').val();
+					var BoardDescription = $('#BoardDescription').val();
 
-                			success : function(data, textStatus, jqXHR) {
-                				alert('Board Added');
-                								
-                				window.location.href = "MyBoards.jsp";
-                			},
-                			error : function(jqXHR, textStatus, errorThrown) {
-                				alert('Could not process request.. ' + errorThrown);
-                			}
-                		});
+					$
+							.ajax({
+								url : "tackit/user/pinboard",
+								type : "POST",
+								data : "BoardName=" + BoardName
+										+ "&BoardDescription="
+										+ BoardDescription,
 
-                		
-                		
-                		
-                    }
-                    
-                    var foo = "";
-                    function showBoard(id) {
-                        alert(id);
-                        $.ajax({
-                            url : "tackit/user/showBoard",
-                            type : "POST",
-                            data : "boardId=" + id,
-                            
-                            success : function(data, textStatus, jqXHR) {
-                                foo = '${images}';
-                                alert(foo.value);
-                            },
-                            error : function(jqXHR, textStatus, errorThrown) {
-                                alert('Could not process request.. ' + errorThrown);
-                            }
-                        });
-                    
-                        /* var foo = '${images}';
-                        alert(foo.value); */
-                        
-                        <%
-                        Object obj = session.getAttribute("images");
-                        String str = (String) obj;
-                        System.out.println("in scr:" + str);
-                        
-                    %>
-                        /* alert(str); */
-                        
-                        
-                         $.Dialog({
-                             overlay: true,
-                             shadow: true,
-                             flat: true,
-                             draggable: true,
-                             icon: '<span class="icon-grid-view"></span>',
-                             title: 'Flat window',
-                             content: '',
-                             padding: 10,
-                             width: 500,
-                             onShow: function(_dialog){
-                                 var content =  '${images}';   
-                                 $.Dialog.title("Tacks in the Board");
-                                 $.Dialog.content(content);
-                             }
-                         });
-					}
-                    
-</script>
+								success : function(data, textStatus, jqXHR) {
+									alert('success');
+
+									//window.location.href = "MyBoar.jsp";
+								},
+								error : function(jqXHR, textStatus, errorThrown) {
+									alert('Could not process request.. '
+											+ errorThrown);
+								}
+							});
+
+					$
+							.ajax({
+								url : "tackit/user/getBoards",
+								type : "GET",
+								datatype : 'text',
+
+								success : function(data, textStatus, jqXHR) {
+									alert('Board Added');
+
+									window.location.href = "MyBoards.jsp";
+								},
+								error : function(jqXHR, textStatus, errorThrown) {
+									alert('Could not process request.. '
+											+ errorThrown);
+								}
+							});
+
+				}
+
+				var foo = "";
+				function showBoard(id) {
+					alert(id);
+					$.ajax({
+								url : "tackit/user/showBoard",
+								type : "POST",
+								data : "boardId=" + id,
+
+								success : function(data, textStatus, jqXHR) {
+									foo = '${images}';
+									alert(foo.value);
+								},
+								error : function(jqXHR, textStatus, errorThrown) {
+									alert('Could not process request.. '
+											+ errorThrown);
+								}
+							});
+
+					/* var foo = '${images}';
+					alert(foo.value); */
+			<%Object obj = session.getAttribute("images");
+			String str = (String) obj;
+			System.out.println("in scr:" + str);%>
+				/* alert(str); */
+
+					$.Dialog({
+						overlay : true,
+						shadow : true,
+						flat : true,
+						draggable : true,
+						icon : '<span class="icon-grid-view"></span>',
+						title : 'Flat window',
+						content : '',
+						padding : 10,
+						width : 500,
+						onShow : function(_dialog) {
+							var content = '${images}';
+							$.Dialog.title("Tacks in the Board");
+							$.Dialog.content(content);
+						}
+					});
+				}
+			</script>
 		</nav>
 	</nav>
 
 	<div class="tile-area tile-area-white">
 
 		<c:forEach var="board" items="${user.myBoards}" varStatus="status">
-		 <a href='#' onclick="showBoard(this.id);" id= "${board.title }">
-			<div class="tile double double-vertical live" data-role="live-tile"
-				data-effect="slideUpDown"
-				data-easing="easeInElastic">
-				<%-- <div class="tile-content image" id= "${board.title }" onclick="showBoard(this.title)"> --%>
-			
-				<c:forEach var="url1" items="${board.tackList}">
-				<div class="tile-content image">
-					<img src="${url1.URL}">
-					</div>
-			 </c:forEach>
-			 <div class="tile-status bg-dark opacity" >
-	 <!-- <a href='#'  onclick="showBoard('hi');" > -->
-					<span class="label">${board.title} </span>			
-				<!-- </a> -->
-				</div>
+			<a href='#' onclick="showBoard(this.id);" id="${board.title }">
+				<div class="tile double double-vertical live" data-role="live-tile"
+					data-effect="slideUpDown" data-easing="easeInElastic">
+					<%-- <div class="tile-content image" id= "${board.title }" onclick="showBoard(this.title)"> --%>
 
-			</div>
-			</a>
+					<c:forEach var="url1" items="${board.tackList}">
+						<div class="tile-content image">
+							<img src="${url1.URL}">
+						</div>
+					</c:forEach>
+					</a>
+					<div class="tile-status bg-light opacity">
+						<!-- <a href='#'  onclick="showBoard('hi');" > -->
+						<span class="label "><font color="000000"><p align="center">${board.title}</p><font></span>
+						
+						<span align="right" class="label">
+						 <button class="opacity" align="middle" onclick="deleteBoard(1)"><span class="icon-pencil on-right"></button> 
+						 <button class="opacity" align="middle" onclick="deleteBoard(1)"><span class="icon-remove on-right"></button>    
+						</span>
+						
+						<!-- </a> -->
+					</div>
+					
+
+				</div>
+			
 		</c:forEach>
 	</div>
 
+	
+	<script>
+	function  deleteBoard(id)
+	{
+		$.ajax({
+			url : "tackit/user/deleteBoard",
+			type : "DELETE",
+			data : "boardId=" + id,
+
+			success : function(data, textStatus, jqXHR) {
+				alert("Board deleted");
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert('Could not process request.. '
+						+ errorThrown);
+			}
+		});
+	}
+	</script>
+<button class="small icon-remove" onclick="deleteBoard(1)">Button</button>
 </body>
 </html>
 

@@ -95,6 +95,15 @@ public class DashBoard {
 	public void setTackList(ArrayList<Tack> tackList) {
 		this.tackList = tackList;
 	}
+	
+	public boolean equals(Object o) {
+	 if ((o instanceof DashBoard) && (((DashBoard)o).getId()==
+		 this.id)) {
+		 return true;
+		 } else {
+		 return false;
+		 }
+		 }
 
 
 	

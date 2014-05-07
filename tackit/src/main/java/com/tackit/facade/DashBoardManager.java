@@ -12,4 +12,13 @@ public class DashBoardManager {
 		return dashBoardDao.addDash( dashBoardtoAdd );			
 	}
 	
+	
+	public boolean deleteTackFromBoard( String  boardId, String tackId  ){
+		
+		DashBoardDao dashBoardDao = new DashBoardDao();
+		
+		return dashBoardDao.deleteTackFromBoard(boardId, tackId);
+		
+		
+	}
 }

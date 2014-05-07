@@ -30,6 +30,7 @@ public class DashBoardDao{
 	 * @param dashBoardId
 	 * @return
 	 */
+	
 	public DashBoard getDashBoardNameAndOwner( String dashBoardId ){ // get dash board name and owner only no tacks
 
 		DB db = MongoConnection.getConn();
@@ -96,12 +97,12 @@ public class DashBoardDao{
 		DBCursor cursorDashBoard = dashBoardCollection.find( searchDashdocument );  // get cursor
 
 		DashBoard board = null;
+		
+		UserDao userDao = new UserDao();
 
 		while ( cursorDashBoard.hasNext()) {
 
 			DBObject dashBoardDoc = cursorDashBoard.next();
-
-			System.out.println(  " dashBoardDoc "  + dashBoardDoc );
 
 			board = new DashBoard();
 
@@ -109,7 +110,7 @@ public class DashBoardDao{
 
 			board.setId( dashBoardId );						// set dashboard id
 
-			board.setOwner( dashBoardDoc.get("Owner").toString() );
+			board.setOwner( userDao.getUserDetailsNodashById ( dashBoardDoc.get("Owner").toString() ) );
 
 			board.setDescription( dashBoardDoc.get("Description").toString() );
 
@@ -121,8 +122,6 @@ public class DashBoardDao{
 
 				for( Iterator< Object > it = tacksList.iterator(); it.hasNext(); ) {
 					String tackListid     =  (String) it.next();
-
-					System.out.println("tackListObj  " + tackListid);
 
 					Tack t = tdo.getTackbyId( tackListid );
 
@@ -180,7 +179,7 @@ public class DashBoardDao{
 			BasicDBObject newDash = new BasicDBObject();			// crate push object
 			newDash.append("dashboards", dashId );
 
-			BasicDBObject originalDash = new BasicDBObject();		// puch array	
+			BasicDBObject originalDash = new BasicDBObject();		// push array	
 			originalDash.put("$push", newDash);
 
 			System.out.println("originalDash" + originalDash);
@@ -199,6 +198,82 @@ public class DashBoardDao{
 
 		return 0;
 	}
+	
+	public boolean removeDashBoardById( String boardId ){
+		
+	boolean returnVal = false ;
+		
+		try { 
+			
+			DB db = MongoConnection.getConn();
+			
+			DBCollection dashCollection = db.getCollection("DashBoard");
+			
+			ObjectId objid = new ObjectId(boardId); // search board
+	
+			BasicDBObject searchBoard = new BasicDBObject(); // search board
+																// query
+			searchBoard.put("_id", objid);
+			
+			dashCollection.remove( searchBoard ); // delete board
+			
+			// ===========================================
+			
+			returnVal = true;
+		
+		} catch ( Exception e ){
+			
+			e.printStackTrace();
+			
+		}
+		
+		return returnVal;
+		
+	}
+	
+	public boolean deleteTackFromBoard( String boardId , String tackId ){
+		
+		
+		boolean returnVal = false ;
+		
+		try { 
+			
+			DB db = MongoConnection.getConn();
+			
+			DBCollection dashCollection = db.getCollection("DashBoard");
+			
+			ObjectId objid = new ObjectId(boardId); // search board
+	
+			BasicDBObject searchBoard = new BasicDBObject(); // search board
+																// query
+			searchBoard.put("_id", objid);
+			
+			BasicDBObject rmTack = new BasicDBObject(); // remove tack from board
+			rmTack.append("Tacks", tackId);
+			
+			BasicDBObject newTackList = new BasicDBObject();
+			newTackList.put("$pull", rmTack); // remove tack to array
+			
+			System.out.println("newTack  " + newTackList);
+			
+			dashCollection.update(searchBoard, newTackList); // update board
+			
+			// ===========================================
+			
+			TackDao tackDao = new TackDao();
+			
+			returnVal = tackDao.removeBoardFromTack(boardId, tackId);
+		
+		} catch ( Exception e ){
+			
+			e.printStackTrace();
+			
+		}
+		
+		return returnVal;
+		
+	}	
+	
 
 
 }
