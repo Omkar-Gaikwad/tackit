@@ -350,8 +350,9 @@ public class AuthController {
 		System.out.println("Board Id is:"+boardId);
 		UserManagement um=new UserManagement();
 		
-        HttpSession session= req.getSession(true);
-        User user=(User) session.getAttribute("user");
+		User user = (User) req.getSession().getAttribute("user");
+       if(user==null)
+    	   System.out.println("User is null");
         user.deleteDashBoard(boardId);
         System.out.println("User Id is:"+user.getId());
         um.deleteDashBoardById(user.getId(), boardId);

@@ -97,8 +97,8 @@ public class DashBoard {
 	}
 	
 	public boolean equals(Object o) {
-	 if ((o instanceof DashBoard) && (((DashBoard)o).getId()==
-		 this.id)) {
+	 if ((o instanceof DashBoard) && (((DashBoard)o).getId().equals(
+		 this.id))) {
 		 return true;
 		 } else {
 		 return false;

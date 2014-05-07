@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=US-ASCII"
+    pageEncoding="US-ASCII" import="com.tackit.domain.User"  %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta charset="utf-8">
@@ -58,64 +60,33 @@
 </head>
 <body class="metro">
 
-	<div id="header">
-		<div class="navbar navbar-inverse navbar-static-top">
-			<div id="headerNav" class="navbar-inner">
-				<a class="brand" href="/project-vars/"><span
-					style="color: green; margin: 0px 10px 0px 10px;">Tack<span
-						style="color: yellow;">!</span>T
-				</span></a>
-				<%
-					if (session.getAttribute("username") != null) {
-				%>
-				<ul class="nav">
-					<li><a href="/project-vars/viewProjects.htm"
-						style="color: white;"></a></li>
-				</ul>
-				<%
-					}
-				%>
-				<%
-					if (session.getAttribute("username") == null) {
-				%>
-				<ul id="loginMenu" class="nav" style="float: right;">
-					<li><a href="/project-vars/login.htm" style="color: white;">Login</a></li>
-					<li><a href="/project-vars/signup.htm" style="color: white;">Sign
-							Up</a></li>
-				</ul>
-				<%
-					} else {
-				%>
-				<ul id="loggedInMenu" class="nav"
-					style="float: right; padding-right: 35px;">
-					<li class="dropdown" id="loggedInDown">
-						<%--
-					<c:choose>
-					    <c:when test="${user.isTester}">
-					    	<a class="dropdown-toggle" data-toggle="dropdown" href="#loggedInDown" style="color: white;">Hello ${user.firstName} <span class="caret"></span></a>
-					    </c:when>
-	 					<c:otherwise>--%> <a class="dropdown-toggle"
-						data-toggle="dropdown" href="#loggedInDown" style="color: white;">Hello
-							${username} <span class="caret"></span>
-					</a> <%--	</c:otherwise>
- 					</c:choose>
-					--%>
-						<ul class="dropdown-menu">
-							<li><a href="/project-vars/showProfile.htm">Profile</a></li>
-							<li><a href="/project-vars/logout.htm">Logout</a></li>
-						</ul>
-					</li>
-				</ul>
-				<%
-					}
-				%>
+
+<nav class="navigation-bar dark">
+		<nav class="navigation-bar-content">
+			 <span class="element-divider"></span><span style="color: green; margin: 0px 10px 0px 10px;">Tack<span style="color: yellow;">!</span>T</span></span>
+
+
+
+			<div class="element place-right">
+				<a href="#" onclick="logout()">Logout
 			</div>
-		</div>
-	</div>
+
+			
+		</nav>
+	</nav>
+
 	<nav class="navigation-bar white">
 		<nav class="navigation-bar-content">
 			<a href="/" class="element"><span class="icon-grid-view"></span>
-				2 Boards</a> <span class="element-divider"></span> <a class="pull-menu"
+				<%    
+				System.out.print((User)session.getAttribute("user"));
+				String boardCount = 0 + "";
+				User user= null;
+				if(null != session.getAttribute("user")) {
+				 user=(User)session.getAttribute("user"); 
+				boardCount = user.getBoardCount() ; 				
+				}
+				%> <%=boardCount %> Boards</a> <span class="element-divider"></span> <a class="pull-menu"
 				href="#"></a> <a href="/" class="element"><span
 				class="icon-grid-view"></span> 4 Pins</a> <span class="element-divider"></span>
 			<a href="/" class="element"><span class="icon-grid-view"></span>
@@ -139,7 +110,63 @@
 
 			</div>
 			<span class="element-divider"></span>
-			<script>
+			
+		</nav>
+	</nav>
+
+	<div class="tile-area tile-area-white">
+
+		<c:forEach var="board" items="${user.myBoards}" varStatus="status">
+			<a href='#' onclick="showBoard(this.id);" id="${board.title }">
+				<div class="tile double double-vertical live" data-role="live-tile"
+					data-effect="slideUpDown" data-easing="easeInElastic">
+					<%-- <div class="tile-content image" id= "${board.title }" onclick="showBoard(this.title)"> --%>
+
+					<c:forEach var="url1" items="${board.tackList}">
+						<div class="tile-content image">
+							<img src="${url1.URL}">
+						</div>
+					</c:forEach>
+					</a>
+					<div class="tile-status bg-light opacity">
+						<!-- <a href='#'  onclick="showBoard('hi');" > -->
+						<span class="label "><font color="000000"><p align="center">${board.title}</p><font></span>
+						
+						<span align="right" class="label">
+						 <%-- <button class="opacity" align="middle" onclick="deleteBoard(${board.id});"><span class="icon-pencil on-right"></button> --%> 
+						 <button class="opacity" align="middle"  id="${board.id}" onclick="deleteBoard(this.id);")><span class="icon-remove on-right"></button>    
+						</span>
+						
+						<!-- </a> -->
+					</div>
+					
+
+				</div>
+			
+		</c:forEach>
+	</div>
+
+	
+	<script>
+	function  deleteBoard(id)
+	{
+		alert("In deleteBoard");
+		$.ajax({
+			url : "tackit/user/deleteBoard",
+			type : "DELETE",
+			data : "boardId=" + id,
+
+			success : function(data, textStatus, jqXHR) {
+				window.location.href = "MyBoards.jsp";
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert('Could not process request.. '
+						+ errorThrown);
+			}
+		});
+	}
+	</script>
+	<script>
 				$("#createboard")
 						.on(
 								'click',
@@ -189,7 +216,7 @@
 
 								success : function(data, textStatus, jqXHR) {
 									alert('success');
-
+	
 									//window.location.href = "MyBoar.jsp";
 								},
 								error : function(jqXHR, textStatus, errorThrown) {
@@ -259,62 +286,15 @@
 						}
 					});
 				}
-			</script>
-		</nav>
-	</nav>
-
-	<div class="tile-area tile-area-white">
-
-		<c:forEach var="board" items="${user.myBoards}" varStatus="status">
-			<a href='#' onclick="showBoard(this.id);" id="${board.title }">
-				<div class="tile double double-vertical live" data-role="live-tile"
-					data-effect="slideUpDown" data-easing="easeInElastic">
-					<%-- <div class="tile-content image" id= "${board.title }" onclick="showBoard(this.title)"> --%>
-
-					<c:forEach var="url1" items="${board.tackList}">
-						<div class="tile-content image">
-							<img src="${url1.URL}">
-						</div>
-					</c:forEach>
-					</a>
-					<div class="tile-status bg-light opacity">
-						<!-- <a href='#'  onclick="showBoard('hi');" > -->
-						<span class="label "><font color="000000"><p align="center">${board.title}</p><font></span>
-						
-						<span align="right" class="label">
-						 <button class="opacity" align="middle" onclick="deleteBoard(1)"><span class="icon-pencil on-right"></button> 
-						 <button class="opacity" align="middle" onclick="deleteBoard(1)"><span class="icon-remove on-right"></button>    
-						</span>
-						
-						<!-- </a> -->
-					</div>
+				
+				
+				function logout()
+				{
+					alert("In Logout");
+					window.location.href = "login.jsp";
 					
-
-				</div>
-			
-		</c:forEach>
-	</div>
-
-	
-	<script>
-	function  deleteBoard(id)
-	{
-		$.ajax({
-			url : "tackit/user/deleteBoard",
-			type : "DELETE",
-			data : "boardId=" + id,
-
-			success : function(data, textStatus, jqXHR) {
-				alert("Board deleted");
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				alert('Could not process request.. '
-						+ errorThrown);
-			}
-		});
-	}
-	</script>
-<button class="small icon-remove" onclick="deleteBoard(1)">Button</button>
+				}
+			</script>
 </body>
 </html>
 
