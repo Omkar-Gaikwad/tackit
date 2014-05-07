@@ -291,6 +291,49 @@ public class DashBoardDao{
 		return returnVal;
 		
 	}	
+
+	
+	
+	public boolean unFollowDashBoard( String uId , String boardId){
+		
+		boolean returnValue = false;
+		
+		try {
+		
+		DB db = MongoConnection.getConn();
+		
+		DBCollection boardCollection = db.getCollection("DashBoard");
+		
+
+		ObjectId objid = new ObjectId(boardId); // search board
+		
+		BasicDBObject searchBoard = new BasicDBObject(); // search board
+															// query
+		searchBoard.put("_id", objid);
+		
+		
+		BasicDBObject newUser = new BasicDBObject();			
+		newUser.append("followingUsers", uId );
+		
+		BasicDBObject originalDash = new BasicDBObject();			
+		originalDash.put("$pull", newUser);
+		
+		boardCollection.update( searchBoard, originalDash );
+		
+		returnValue = true;
+		
+		}catch ( Exception e ){
+			e.printStackTrace();
+		}
+
+		
+		return returnValue;
+
+	}
+	
+	
+	
+	
 	
 	public boolean followDashBoard( String uId , String boardId){
 		

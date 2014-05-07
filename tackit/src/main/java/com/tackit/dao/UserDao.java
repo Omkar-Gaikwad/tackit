@@ -20,6 +20,49 @@ import com.tackit.domain.User;
  */
 public class UserDao {
 	
+
+	public boolean unFollowDashBoard( String uId , String boardId){
+		
+		boolean returnValue = false;
+		
+		try {
+		
+		DB db = MongoConnection.getConn();
+		
+		DBCollection userCollection = db.getCollection("User");
+		
+
+		ObjectId usrid = new ObjectId( uId );
+		
+		BasicDBObject searchUser = new BasicDBObject();			
+		
+		searchUser.put("_id", usrid );
+		
+		
+		BasicDBObject newDash = new BasicDBObject();			
+		newDash.append("followingdashboards", boardId );
+		
+		BasicDBObject originalDash = new BasicDBObject();			
+		originalDash.put("$pull", newDash);
+		
+		userCollection.update(searchUser, originalDash );
+		
+		DashBoardDao dashBoardDao = new DashBoardDao();
+		
+		returnValue = dashBoardDao.unFollowDashBoard(uId, boardId);
+		
+		}catch ( Exception e ){
+			e.printStackTrace();
+		}
+
+		
+		return returnValue;
+	
+	}
+	
+	
+	
+	
 	
 	public boolean followDashBoard( String uId , String boardId){
 		
