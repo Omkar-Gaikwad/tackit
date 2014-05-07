@@ -71,27 +71,18 @@ public class DashBoardDao{
 			
 			//=====================================================
 			
-/*			BasicDBList usersList = ( BasicDBList ) dashBoardDoc.get( "followingUsers" );
+			BasicDBList usersList = ( BasicDBList ) dashBoardDoc.get( "followingUsers" );
 
 			if ( null != usersList ){
 
-				UserDao udo = new UserDao();
-				
-				asdasdasd
 
 				for( Iterator< Object > it = usersList.iterator(); it.hasNext(); ) {
 					String tackListid     =  (String) it.next();
 
-					Tack t = tdo.getTackbyId( tackListid );
-
-					if ( null != t ){
-						board.addTacks(t);
-					}				
+					board.addFollowerlist( userDao.getUserDetailsNodashById( board.getOwner().getId() ) );	// set owner user object
+									
 				}		
 			}
-			*/
-			
-			
 			
 			//======================================================
 			

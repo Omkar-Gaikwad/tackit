@@ -16,6 +16,14 @@ public class UserManagement {
 		
 	}
 	
+
+	public boolean followBoard( String userId, String boardId , boolean toFollow ){
+		
+		return false;
+		
+	}
+	
+	
 	public int createUser( User u ){
 		UserDao ud = new UserDao();
 		return ud.addUser(u);
