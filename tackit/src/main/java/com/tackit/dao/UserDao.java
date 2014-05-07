@@ -145,7 +145,7 @@ public class UserDao {
 					DashBoard d = dbdo.getDashboardById( followBoardListid );
 					
 					if ( null != d ){
-						usr.addMyBoards(d);
+						usr.addFollowingBoards(d);
 					}						
 				}
 				

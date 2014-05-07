@@ -327,6 +327,46 @@ public class DashBoardDao{
 		
 		return returnValue;
 
+	}
+	
+	
+	public boolean updateBoard( DashBoard d ){
+		
+		
+		boolean returnValue = false ;
+		
+		try { 
+		
+		DB db = MongoConnection.getConn();
+		
+		DBCollection boardCollection = db.getCollection("DashBoard");
+		
+
+		ObjectId objid = new ObjectId( d.getId() ); // search board
+		
+		BasicDBObject searchBoard = new BasicDBObject(); // search board
+															// query
+		searchBoard.put("_id", objid);
+		
+		
+		BasicDBObject newBoard = new BasicDBObject();
+		newBoard.append("Title",  d.getTitle() );
+		newBoard.append("Description", d.getDescription() );
+		
+		BasicDBObject replaceBoard = new BasicDBObject();
+		
+		replaceBoard.append("$set", newBoard );
+	 
+		
+		boardCollection.update( searchBoard, replaceBoard );
+		
+		returnValue = true;
+		
+		} catch( Exception e ){
+			e.printStackTrace();
+		}
+		return returnValue;
+
 		
 		
 	}

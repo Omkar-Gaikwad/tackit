@@ -5,6 +5,14 @@ import com.tackit.domain.DashBoard;
 
 public class DashBoardManager {
 	
+	public boolean updateBoard( DashBoard dashBoardtoChange ){
+	
+		DashBoardDao dashBoardDao = new DashBoardDao();
+		
+		return dashBoardDao.updateBoard( dashBoardtoChange );	
+		
+	}
+	
 	public int addNewDashBoard( DashBoard dashBoardtoAdd ){
 	
 		DashBoardDao dashBoardDao = new DashBoardDao();
