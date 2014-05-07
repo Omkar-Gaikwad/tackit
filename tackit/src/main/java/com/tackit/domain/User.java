@@ -106,6 +106,20 @@ public class User {
 		else
 			return false;
 	}
+	
+	public boolean updateDashBoard(String id,String title,String desc) {
+
+		DashBoard d = new DashBoard();
+		d.setId(id);
+		d.setTitle(title);
+		d.setDescription(desc);
+	
+		int index=this.myBoards.indexOf(d);		
+		System.out.println(id+""+title+""+desc +" "+index);
+		this.myBoards.set(index, d);
+		return true;
+	}
+
 
 	public String getBoardCount() {
 

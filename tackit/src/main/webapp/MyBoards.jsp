@@ -133,7 +133,7 @@
 						<span class="label "><font color="000000"><p align="center">${board.title}</p><font></span>
 						
 						<span align="right" class="label">
-						 <%-- <button class="opacity" align="middle" onclick="deleteBoard(${board.id});"><span class="icon-pencil on-right"></button> --%> 
+						 <button class="opacity" align="middle" id="${board.id}" onclick="editBoard(this.id,'${board.title}','${board.description}');"><span class="icon-pencil on-right"></button> 
 						 <button class="opacity" align="middle"  id="${board.id}" onclick="deleteBoard(this.id);")><span class="icon-remove on-right"></button>    
 						</span>
 						
@@ -148,6 +148,9 @@
 
 	
 	<script>
+	
+
+	
 	function  deleteBoard(id)
 	{
 		alert("In deleteBoard");
@@ -293,6 +296,65 @@
 					alert("In Logout");
 					window.location.href = "login.jsp";
 					
+				}
+				
+				function editBoard(id,title,desc)
+				{
+					alert(id + " " + title + " "  +desc);
+					
+					$.Dialog({
+						overlay : true,
+						shadow : true,
+						flat : true,
+						draggable : true,
+						icon : '<span class="icon-grid-view"></span>',
+						title : 'Flat window',
+						content : '',
+						padding : 10,
+						width : 500,
+						onShow : function(_dialog) {
+							var content = '<label>Board Name</label>'
+									+ '<div class="input-control text required"><input type="text" name="boardname" id="BoardName1" value='+title+'></div>'
+									+ '<label>Description</label>'
+									+ '<div class="input-control textarea">'
+									+ '<textarea id="BoardDescription1">'+desc+'</textarea>'
+									+ '</div>'
+									+ '<div>'
+									+ '<button class="button" id="'+id+'" onclick="editMyBoards(id);" >Update</button>&nbsp;'
+									+ '</div>';
+
+							$.Dialog
+									.title("Edit Board");
+							$.Dialog.content(content);
+						}
+					});
+
+					/* <button class="button" id="editboardbutton" 
+					onclick="editMyBoard('+id+','+document.getElementById("BoardName")+','+document.getElementById("BoardDescription")+');" >
+					Update</button>&nbsp;' */
+				}
+				
+				function editMyBoards(id)
+				{
+					
+					alert('hi');
+					var BoardName = $('#BoardName1').val();
+					var BoardDescription = $('#BoardDescription1').val();
+					alert(BoardName);
+					alert(BoardDescription);
+					$.ajax({
+						url : "tackit/user/editBoard",
+						type : "PUT",
+						data : "id=" + id+ "&title=" + BoardName + "&description="+BoardDescription,
+
+						success : function(data, textStatus, jqXHR) {
+							window.location.href = "MyBoards.jsp";
+						},
+						error : function(jqXHR, textStatus, errorThrown) {
+							alert('Could not process request.. '
+									+ errorThrown);
+						}
+					});
 				}
 			</script>
 </body>

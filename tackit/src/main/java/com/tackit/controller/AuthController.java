@@ -9,10 +9,12 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
+
 
 
 
@@ -48,11 +50,11 @@ import com.tackit.facade.UserManagement;
 public class AuthController {
 
 
-/**
- * @author Akshay Khatavkar
- * Purpose: Used to Sign Up
- * created on:16th April 2014
- */
+	/**
+	 * @author Akshay Khatavkar
+	 * Purpose: Used to Sign Up
+	 * created on:16th April 2014
+	 */
 	/**
 	 * @param fname
 	 * @param lname
@@ -85,7 +87,7 @@ public class AuthController {
 
 		if ( 0 == errorCode )
 			System.out.println("User added");
-		 
+
 
 		return Response.status(200).entity(output).build();
 
@@ -96,7 +98,7 @@ public class AuthController {
 	 * Purpose: Used to Sign in
 	 * created on:16th April 2014
 	 */
-	
+
 	/**
 	 * @param email
 	 * @param password
@@ -166,7 +168,7 @@ public class AuthController {
 	 * Purpose: Used to Process URL sent from GUI
 	 * created on:16th April 2014
 	 */
-	
+
 	/**
 	 * @param url
 	 * @param req
@@ -210,7 +212,7 @@ public class AuthController {
 	 * Purpose: Used to Create a new Board
 	 * created on:16th April 2014
 	 */
-	
+
 	/**
 	 * @param BoardName
 	 * @param BoardDescription
@@ -260,7 +262,7 @@ public class AuthController {
 	 * Purpose: Used to get All the boards of the User
 	 * created on:16th April 2014
 	 */
-	
+
 	/**
 	 * @param req
 	 * @return
@@ -287,7 +289,7 @@ public class AuthController {
 	 * Purpose: Used to add Tack to the Board
 	 * created on:16th April 2014
 	 */
-	
+
 	/**
 	 * @param boardId
 	 * @param imageUrl
@@ -307,60 +309,81 @@ public class AuthController {
 		tacksManager.addTack(boardId, tack);
 		return Response.status(200).entity(output).build();
 	}
-	
-	@POST
-    @Path("/showBoard")
-    public Response showBoard(@FormParam("boardId") String boardId,
-            @Context HttpServletRequest req){
-        String output="SUCCESS";
-         String str = "";
-         List<String> imageList = new ArrayList<String>();
-        List<DashBoard> boardList = ((User) req.getSession().getAttribute("user")).getMyBoards();
-        for (DashBoard dashBoard : boardList) {
-            if(dashBoard.getId().equals(boardId)){
-                for (Tack url : dashBoard.getTackList()) {
-                	imageList.add("<img src=\""+ url.getURL() +"\"  width=\"200\" height=\"283\">");
-                    str = str + "<img src=\""+ url.getURL() +"\"  width=\"200\" height=\"283\">";
-                }
-            }
-        }
-        System.out.println("Final str is "+str);
-        req.setAttribute("myAtt", str);
-        req.getSession().setAttribute("images", str);
-        req.getSession().setAttribute("imageList", imageList); 
-        return Response.status(200).entity(str).build();
-    }
-	
-	@POST
-    @Path("/followBoard")
-    public Response followBoard(@FormParam("boardId") String boardId,@FormParam("boardTitle") String boardTitle,@FormParam("owner") String owner,
-            @Context HttpServletRequest req){
-       
-         String str = "";
 
-        return Response.status(200).entity(str).build();
-    }
-	
-	
+	@POST
+	@Path("/showBoard")
+	public Response showBoard(@FormParam("boardId") String boardId,
+			@Context HttpServletRequest req){
+		String output="SUCCESS";
+		String str = "";
+		List<String> imageList = new ArrayList<String>();
+		List<DashBoard> boardList = ((User) req.getSession().getAttribute("user")).getMyBoards();
+		for (DashBoard dashBoard : boardList) {
+			if(dashBoard.getId().equals(boardId)){
+				for (Tack url : dashBoard.getTackList()) {
+					imageList.add("<img src=\""+ url.getURL() +"\"  width=\"200\" height=\"283\">");
+					str = str + "<img src=\""+ url.getURL() +"\"  width=\"200\" height=\"283\">";
+				}
+			}
+		}
+		System.out.println("Final str is "+str);
+		req.setAttribute("myAtt", str);
+		req.getSession().setAttribute("images", str);
+		req.getSession().setAttribute("imageList", imageList); 
+		return Response.status(200).entity(str).build();
+	}
+
+	@POST
+	@Path("/followBoard")
+	public Response followBoard(@FormParam("boardId") String boardId,@FormParam("boardTitle") String boardTitle,@FormParam("owner") String owner,
+			@Context HttpServletRequest req){
+
+		String str = "";
+
+		return Response.status(200).entity(str).build();
+	}
+
+
 	@DELETE
-    @Path("/deleteBoard")
-    public Response deleteBoard(@FormParam("boardId") String boardId,
-            @Context HttpServletRequest req){     
-		
+	@Path("/deleteBoard")
+	public Response deleteBoard(@FormParam("boardId") String boardId,
+			@Context HttpServletRequest req){     
+
 		System.out.println("Board Id is:"+boardId);
 		UserManagement um=new UserManagement();
-		
+
 		User user = (User) req.getSession().getAttribute("user");
-       if(user==null)
-    	   System.out.println("User is null");
-        user.deleteDashBoard(boardId);
-        System.out.println("User Id is:"+user.getId());
-        um.deleteDashBoardById(user.getId(), boardId);
-        req.getSession().setAttribute("user", user); 
-        return Response.status(200).entity("board deleted").build();
-    }
+		if(user==null)
+			System.out.println("User is null");
+		user.deleteDashBoard(boardId);
+		System.out.println("User Id is:"+user.getId());
+		um.deleteDashBoardById(user.getId(), boardId);
+		req.getSession().setAttribute("user", user); 
+		return Response.status(200).entity("board deleted").build();
+	}
 
-	
+	@PUT
+	@Path("/editBoard")
+	public Response editBoard(@FormParam("id") String id,
+			@FormParam("title") String title,@FormParam("description") String description,
+			@Context HttpServletRequest req){
 
-	
+       DashBoardManager dm=new DashBoardManager();
+       User user = (User) req.getSession().getAttribute("user");
+       
+       System.out.println("ID passwed is :"+id);
+		if(user==null)
+			System.out.println("User is null");
+		user.updateDashBoard(id,title,description);
+		System.out.println("User Id is:"+user.getId());
+	   
+       DashBoard d=new DashBoard();
+       d.setId(id);
+       d.setDescription(description);
+       d.setTitle(title);
+       dm.updateBoard(d);
+		return Response.status(200).entity("board updated").build();
+
+
+	}
 }
