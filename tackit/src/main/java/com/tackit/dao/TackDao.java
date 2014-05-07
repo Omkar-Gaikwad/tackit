@@ -16,6 +16,62 @@ import com.tackit.domain.Tack;
 
 public class TackDao {
 
+	
+	public ArrayList<Tack> getLastNTacksDashandUserInfo( int n ) {
+
+		DB db = MongoConnection.getConn();
+
+		DBCollection tackCollection = db.getCollection("Tack"); // get tacks
+																// collection
+
+		DBObject orderBy = new BasicDBObject("_id",-1);
+		
+		DBCursor cursorTacks = tackCollection.find().sort(orderBy).limit(n);
+
+		ArrayList<Tack> allTacks = new ArrayList<Tack>(); // array list to
+															// return tacks
+
+		while (cursorTacks.hasNext()) {
+
+			try {
+
+				DBObject tackDoc = cursorTacks.next();
+
+				Tack t = new Tack();
+
+				t.setId(tackDoc.get("_id").toString());
+				t.setURL(tackDoc.get("URL").toString());
+
+				BasicDBList boardsList = (BasicDBList) tackDoc.get("Board");
+
+				if (null != boardsList) {
+
+					DashBoardDao dashBoardDao = new DashBoardDao();
+
+					for (Iterator<Object> it = boardsList.iterator(); it
+							.hasNext();) {
+						String boardListId = (String) it.next();
+
+						System.out.println("boardListId  " + boardListId);
+
+						DashBoard dashBoard = dashBoardDao
+								.getDashBoardNameAndOwner(boardListId);
+
+						if (null != dashBoard) {
+							t.addDashboardlist(dashBoard);
+						}
+					}
+				}
+
+				allTacks.add(t);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return allTacks;
+	}
+	
+	
 	public ArrayList<Tack> getAllTacksDashandUserInfo() {
 
 		DB db = MongoConnection.getConn();
