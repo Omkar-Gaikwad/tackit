@@ -85,9 +85,22 @@ public class AuthController {
 		String output = "Thankyou for registring with us you will recieve email shortly "+ user.getFirstName();
 
 
-		if ( 0 == errorCode )
+		if ( 0 == errorCode ){
 			System.out.println("User added");
-
+			
+			user = um.getUserInfo(email, password);
+			
+			DashBoardManager dashboardmanager = new DashBoardManager();
+			
+			DashBoard dashBoardtoAdd = new DashBoard();
+			dashBoardtoAdd.setOwner(user.getId());
+			dashBoardtoAdd.setTitle("MyFavorite");
+			dashBoardtoAdd.setDescription("These are My Favorite tacks");
+			dashboardmanager.addNewDashBoard(dashBoardtoAdd );
+			
+			
+			
+		}
 
 		return Response.status(200).entity(output).build();
 
@@ -308,6 +321,7 @@ public class AuthController {
 		System.out.println(imageUrl);
 		tacksManager.addTack(boardId, tack);
 		return Response.status(200).entity(output).build();
+		
 	}
 
 	@POST
@@ -386,4 +400,46 @@ public class AuthController {
 
 
 	}
+	
+	
+	/*
+	 * Api for favorite
+	 */
+	
+	@POST
+	@Path("/favorite")
+	public Response favorite(@FormParam("boardId") String boardId,
+			@FormParam("imageUrl") String imageUrl,
+			@Context HttpServletRequest req){
+	System.out.println("inside favorite api");
+	System.out.println("user board id "+boardId);
+	
+    	User user = (User) req.getSession().getAttribute("user");
+	
+		
+		String output="Image Added";
+		TacksManager tacksManager = new TacksManager();
+		Tack tack = new Tack();
+		tack.setURL(imageUrl);
+		System.out.println(imageUrl);
+		tacksManager.addTack(user.getFavBoardId(), tack);
+		
+
+		UserManagement userManagement = new UserManagement();
+System.out.println("user id "+user.getId());
+
+		user = userManagement.getUserBoardsAndTacks(user.getId());
+
+		List<String> userBoards = user.getDashBoardNames();
+		req.getSession().setAttribute("user", user);
+		req.getSession().setAttribute("userBoards", userBoards);
+
+		
+		
+		return Response.status(200).entity(output).build();
+	}
+
+	
+	
+	
 }

@@ -155,5 +155,22 @@ public class User {
 		}
 		return followDashBoardNames;
 	}
+	
+	
+	public String getFavBoardId(){
+		
+		for ( DashBoard d : this.myBoards ){
+			
+			if ( d.getTitle().equals( "MyFavorite") ){
+				return d.getId();
+			}
+			
+			
+		}
+		
+		
+		return email;
+		
+	}
 
 }

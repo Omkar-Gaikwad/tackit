@@ -72,6 +72,27 @@
 		imageUrl = id;
 	}
 	
+	function addTofavorite(id){
+		//$("#myModal4").modal('show');
+		imageUrl = id;
+		$.ajax({
+			url : "tackit/user/favorite",
+			type : "POST",
+			data : "boardId=" + id + "&imageUrl="+imageUrl,
+
+			success : function(data, textStatus, jqXHR) {
+				
+				/* $("#myModal3").close(); */
+				$('#myModal4').modal({show: false})
+				alert('Tack successfully added to the Board')
+				//window.location.href = "homepage.jsp";
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert('Could not process request.. ' + errorThrown);
+			}
+		});
+	}
+	
 	function function1(id){
 		
 		
@@ -92,6 +113,35 @@
 			}
 		});
 	}
+	
+	
+	/*function for favorite
+	*/
+	
+function functionF(id){
+		
+		
+		$.ajax({
+			url : "tackit/user/favorite",
+			type : "POST",
+			data : "boardId=" + id + "&imageUrl="+imageUrl,
+
+			success : function(data, textStatus, jqXHR) {
+				
+				/* $("#myModal3").close(); */
+				$('#myModal4').modal({show: false})
+				alert('Tack successfully added to the Board')
+				//window.location.href = "homepage.jsp";
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert('Could not process request.. ' + errorThrown);
+			}
+		});
+	}
+	
+	
+	
+	
 
 </script>
 <style type="text/css">
@@ -179,6 +229,7 @@
 						<li><a href="#">Profile</a></li>
 						<li><a href="#">Settings</a></li>
 						<li><a href="MyBoards.jsp">MyBoards</a></li>
+						<li><a href="#">My favorites</a></li>
 
 					</ul>
 				</div>
@@ -371,6 +422,8 @@
 									<c:forEach var="boardId" items="${image.dashboardlist}" varStatus="status">
 									 <c:if test="${status.count le 1}"> 
 									<a href="#" class="btn btn-primary" role="button" id="${boardId.id}" onclick="showUserBoard(this.id,'${boardId.title}','${boardId.owner}')">Board</a>
+									<a href="#" class="btn btn-primary" role="button"  id="${image.URL}"  onclick="addTofavorite(this.id)">favaorite</a>
+				
 									 </c:if>  
 									</c:forEach>
 								</p>
@@ -383,6 +436,56 @@
 				
 				</div>
 				
+				
+				
+				
+				
+				
+				
+				<!-- favorite -->
+				
+				 <div id="myModal4" class="modal">
+						<!--style="width: 1000px; height: 2000px" align="left"  -->
+
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+									<h4 class="modal-title">Add your pins here</h4>
+								</div>
+
+								<div class="modal-body">
+
+									<div class="tile-area tile-area-white">
+
+		<c:forEach var="board" items="${user.myBoards}" varStatus="status">
+			
+			<div>
+			<div class="tile-status bg-dark opacity">	
+				<a class="tile vertical" id="${board.id}"  data-click="transform" href='#' onclick="functionF(this.id)">
+					<span class="label">${board.title} </span>	
+				
+				</a>
+				 </div>	
+			</div>
+		</c:forEach>
+	</div>
+
+
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">Close</button>
+									<button type="submit" id="submiturl" class="btn btn-primary"
+										onclick="submiturl()">Attach Tack</button>
+
+								</div>
+							</div>
+						</div>
+					</div>
+			
 				
 				
 				
